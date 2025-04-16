@@ -5,6 +5,12 @@
 export.cfg
 export_presets.cfg
 
+# Godot 4 internal cache
+.godot/imported/
+.godot/tmp/
+.godot/crash_reports/
+
+
 # Imported translations (automatically generated from CSV files)
 *.translation
 
@@ -26,4 +32,35 @@ data_*/
 # .nfs files are created when an open file is removed but is still being accessed
 .nfs*
 
+### Emacs ###
+*~undo-tree~
+
 # End of https://www.toptal.com/developers/gitignore/api/emacs,godot,linux
+
+# OS-specific
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# User-specific
+*.cfg
+*.log
+*.tmp
+
+# Godot Mono (C#)
+.mono/
+*.csproj
+*.sln
+*.user
+*.pidb
+*.dll
+*.mdb
+*.pdb
+*.suo
+*.vs/
+
+# Build outputs
+/bin/
+
+# Misc
+reference/
