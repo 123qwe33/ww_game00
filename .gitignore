@@ -9,6 +9,7 @@ export_presets.cfg
 .godot/imported/
 .godot/tmp/
 .godot/crash_reports/
+.godot/shader_cache/
 
 
 # Imported translations (automatically generated from CSV files)
