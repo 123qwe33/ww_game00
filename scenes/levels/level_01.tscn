@@ -1,25 +1,30 @@
-[gd_scene load_steps=2 format=3 uid="uid://cam6hf1neqsgp"]
+[gd_scene load_steps=3 format=3 uid="uid://cam6hf1neqsgp"]
 
 [ext_resource type="PackedScene" uid="uid://c7ff4v7yrgxf0" path="res://scenes/player/player.tscn" id="1_m802k"]
+[ext_resource type="Script" uid="uid://dwmwlx4kdumig" path="res://scripts/components/camera_2d.gd" id="2_i2aat"]
 
 [node name="Level01" type="Node2D"]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
-[node name="BG" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="BackgroundLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.5, 0.5)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/BG"]
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/BackgroundLayer"]
 
-[node name="FG" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="ForegroundLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+z_index = 10
+motion_scale = Vector2(1.5, 1.5)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/FG"]
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ForegroundLayer"]
 
 [node name="GameplayLayer" type="Node2D" parent="."]
 
 [node name="Player" parent="GameplayLayer" instance=ExtResource("1_m802k")]
-position = Vector2(-387, 8)
 
 [node name="TileMap" type="TileMap" parent="GameplayLayer"]
 format = 2
 
 [node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("2_i2aat")
+target_node_path = NodePath("../GameplayLayer/Player")
