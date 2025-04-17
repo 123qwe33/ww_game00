@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://cam6hf1neqsgp"]
+
+[ext_resource type="PackedScene" uid="uid://c7ff4v7yrgxf0" path="res://scenes/player/player.tscn" id="1_m802k"]
+
+[node name="Level01" type="Node2D"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="BG" type="ParallaxLayer" parent="ParallaxBackground"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/BG"]
+
+[node name="FG" type="ParallaxLayer" parent="ParallaxBackground"]
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/FG"]
+
+[node name="GameplayLayer" type="Node2D" parent="."]
+
+[node name="Player" parent="GameplayLayer" instance=ExtResource("1_m802k")]
+position = Vector2(-387, 8)
+
+[node name="TileMap" type="TileMap" parent="GameplayLayer"]
+format = 2
+
+[node name="Camera2D" type="Camera2D" parent="."]
