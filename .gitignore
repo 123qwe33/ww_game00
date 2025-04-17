@@ -12,7 +12,6 @@ export_presets.cfg
 .godot/shader_cache/
 .godot/editor/
 .godot/uid_cache.bin
-.godot/.gdignore
 
 
 # Imported translations (automatically generated from CSV files)
