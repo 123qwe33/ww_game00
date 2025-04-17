@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=3 uid="uid://cam6hf1neqsgp"]
+[gd_scene load_steps=5 format=3 uid="uid://cam6hf1neqsgp"]
 
+[ext_resource type="Texture2D" uid="uid://bl07lth33wqug" path="res://assets/environment/level_01/background.png" id="1_2djvx"]
 [ext_resource type="PackedScene" uid="uid://c7ff4v7yrgxf0" path="res://scenes/player/player.tscn" id="1_m802k"]
 [ext_resource type="Script" uid="uid://dwmwlx4kdumig" path="res://scripts/components/camera_2d.gd" id="2_i2aat"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2djvx"]
+size = Vector2(3136.5, 34)
 
 [node name="Level01" type="Node2D"]
 
@@ -9,8 +13,21 @@
 
 [node name="BackgroundLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.5, 0.5)
+motion_mirroring = Vector2(707, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/BackgroundLayer"]
+texture_filter = 1
+texture_repeat = 3
+position = Vector2(-450, 36.5)
+scale = Vector2(7.68657, 7.68657)
+texture = ExtResource("1_2djvx")
+
+[node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/BackgroundLayer"]
+texture_filter = 1
+texture_repeat = 3
+position = Vector2(965, 36.5)
+scale = Vector2(7.68657, 7.68657)
+texture = ExtResource("1_2djvx")
 
 [node name="ForegroundLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 z_index = 10
@@ -21,9 +38,23 @@ motion_scale = Vector2(1.5, 1.5)
 [node name="GameplayLayer" type="Node2D" parent="."]
 
 [node name="Player" parent="GameplayLayer" instance=ExtResource("1_m802k")]
+position = Vector2(0, 32)
 
 [node name="TileMap" type="TileMap" parent="GameplayLayer"]
 format = 2
+
+[node name="StaticBody2D" type="StaticBody2D" parent="GameplayLayer"]
+position = Vector2(0, 130)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayLayer/StaticBody2D"]
+position = Vector2(1229.75, 11)
+shape = SubResource("RectangleShape2D_2djvx")
+
+[node name="ColorRect" type="ColorRect" parent="GameplayLayer/StaticBody2D"]
+offset_left = -340.0
+offset_top = -7.0
+offset_right = 2804.0
+offset_bottom = 36.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 script = ExtResource("2_i2aat")
