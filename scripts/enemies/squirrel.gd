@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@onready var sprite = $AnimatedSprite2D # Ensure this matches your node name
+@onready var sprite = $AnimatedSprite2D
 @onready var direction_timer = $DirectionTimer
 
 # States Enum
