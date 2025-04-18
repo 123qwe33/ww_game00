@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@onready var sprite = $Sprite2D
+@onready var sprite = $AnimatedSprite2D
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
@@ -30,7 +30,9 @@ func _physics_process(delta):
 
 	if direction:
 		velocity.x = direction * SPEED
+		sprite.play("walk")
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED) # Simple friction/stop
+		sprite.play("idle")
 
 	move_and_slide() # Essential CharacterBody2D function
