@@ -3,9 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bl07lth33wqug" path="res://assets/environment/level_01/background.png" id="1_2djvx"]
 [ext_resource type="PackedScene" uid="uid://c7ff4v7yrgxf0" path="res://scenes/player/player.tscn" id="1_m802k"]
 [ext_resource type="Script" uid="uid://dwmwlx4kdumig" path="res://scripts/components/camera_2d.gd" id="2_i2aat"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2djvx"]
-size = Vector2(3136.5, 34)
+[ext_resource type="TileSet" uid="uid://co81d1ev52we3" path="res://assets/tilesets/forest_tileset.tres" id="3_uvc87"]
 
 [node name="Level01" type="Node2D"]
 
@@ -18,14 +16,14 @@ motion_mirroring = Vector2(707, 0)
 [node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/BackgroundLayer"]
 texture_filter = 1
 texture_repeat = 3
-position = Vector2(-450, 36.5)
+position = Vector2(-450, 70)
 scale = Vector2(7.68657, 7.68657)
 texture = ExtResource("1_2djvx")
 
 [node name="Sprite2D2" type="Sprite2D" parent="ParallaxBackground/BackgroundLayer"]
 texture_filter = 1
 texture_repeat = 3
-position = Vector2(965, 36.5)
+position = Vector2(965, 70)
 scale = Vector2(7.68657, 7.68657)
 texture = ExtResource("1_2djvx")
 
@@ -38,23 +36,14 @@ motion_scale = Vector2(1.5, 1.5)
 [node name="GameplayLayer" type="Node2D" parent="."]
 
 [node name="Player" parent="GameplayLayer" instance=ExtResource("1_m802k")]
-position = Vector2(0, 32)
+position = Vector2(0, 62)
 
 [node name="TileMap" type="TileMap" parent="GameplayLayer"]
+position = Vector2(0, -911)
+scale = Vector2(6, 6)
+tile_set = ExtResource("3_uvc87")
 format = 2
-
-[node name="StaticBody2D" type="StaticBody2D" parent="GameplayLayer"]
-position = Vector2(0, 130)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GameplayLayer/StaticBody2D"]
-position = Vector2(1229.75, 11)
-shape = SubResource("RectangleShape2D_2djvx")
-
-[node name="ColorRect" type="ColorRect" parent="GameplayLayer/StaticBody2D"]
-offset_left = -340.0
-offset_top = -7.0
-offset_right = 2804.0
-offset_bottom = 36.0
+layer_0/tile_data = PackedInt32Array(851962, 4, 4, 851963, 4, 4, 851964, 4, 4, 851965, 4, 4, 851966, 4, 4, 851967, 4, 4, 786432, 4, 4, 786433, 4, 4, 786434, 4, 4, 786435, 4, 4, 786436, 4, 4, 786437, 4, 4, 917498, 4, 4, 917499, 4, 4, 917500, 4, 4, 917501, 4, 4, 917502, 4, 4, 917503, 4, 4, 851968, 4, 4, 851969, 4, 4, 851970, 4, 4, 851971, 4, 4, 851972, 4, 4, 851973, 4, 4, 917509, 4, 4, 917508, 4, 4, 917507, 4, 4, 917506, 4, 4, 917505, 4, 4, 917504, 4, 4, 983039, 4, 4, 983038, 4, 4, 983037, 4, 4, 983036, 4, 4, 983035, 4, 4, 983034, 4, 4, 720901, 4, 3, 720900, 4, 3, 720899, 4, 3, 720898, 4, 3, 720897, 4, 3, 720896, 4, 3, 786431, 4, 3, 786430, 4, 3, 786429, 4, 3, 786428, 4, 3, 786427, 4, 3, 786426, 4, 3, 983033, 4, 4, 983032, 4, 4, 917496, 4, 4, 851960, 4, 4, 786424, 4, 4, 720888, 4, 0, 917497, 4, 4, 851961, 4, 4, 786425, 65540, 4, 720889, 65540, 0, 655353, 131074, 2, 524280, 131074, 2, 589816, 131074, 2, 655352, 131074, 2, 720890, 65538, 1, 524281, 131074, 2, 720887, 4, 0, 720886, 4, 0, 720885, 4, 0, 720884, 4, 0, 720883, 4, 0, 589815, 131074, 1, 655350, 131074, 1, 655351, 131074, 2, 589813, 131074, 1, 655349, 131074, 1, 655347, 131074, 1, 458742, 131074, 1, 524279, 131074, 1, 589814, 131074, 2, 524277, 131074, 1, 589812, 131074, 1, 524275, 131074, 1, 458741, 131074, 1, 655348, 131074, 2, 589811, 131074, 1, 524276, 131074, 1, 458744, 131074, 1, 458745, 131074, 1, 458743, 131074, 1, 786423, 4, 4, 786422, 4, 4, 786421, 4, 4, 786420, 4, 4, 786419, 4, 4, 851955, 4, 4, 851956, 4, 4, 851957, 4, 4, 851958, 4, 4, 851959, 4, 4, 917495, 4, 4, 917494, 4, 4, 917493, 4, 4, 917492, 4, 4, 917491, 4, 4, 983031, 4, 4, 983030, 4, 4, 983029, 4, 4, 983028, 4, 4, 983027, 4, 4, 655354, 131074, 2, 589818, 2, 5, 524282, 2, 5, 458746, 2, 5, 720891, 65538, 2, 458740, 131074, 2, 393207, 131074, 2, 393202, 131074, 2)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 script = ExtResource("2_i2aat")
