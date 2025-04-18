@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://cam6hf1neqsgp"]
+[gd_scene load_steps=7 format=3 uid="uid://cam6hf1neqsgp"]
 
 [ext_resource type="Texture2D" uid="uid://bl07lth33wqug" path="res://assets/environment/level_01/background.png" id="1_2djvx"]
 [ext_resource type="PackedScene" uid="uid://c7ff4v7yrgxf0" path="res://scenes/player/player.tscn" id="1_m802k"]
+[ext_resource type="Texture2D" uid="uid://bdw7ishpykgcw" path="res://assets/sprites/statics/ford_focus.png" id="2_50wog"]
 [ext_resource type="Script" uid="uid://dwmwlx4kdumig" path="res://scripts/components/camera_2d.gd" id="2_i2aat"]
 [ext_resource type="TileSet" uid="uid://co81d1ev52we3" path="res://assets/tilesets/forest_tileset.tres" id="3_uvc87"]
 [ext_resource type="PackedScene" uid="uid://qyluy8f7x30h" path="res://scenes/enemies/squirrel.tscn" id="4_qdh5e"]
@@ -36,8 +37,15 @@ motion_scale = Vector2(1.5, 1.5)
 
 [node name="GameplayLayer" type="Node2D" parent="."]
 
+[node name="FordFocus" type="Node2D" parent="GameplayLayer"]
+position = Vector2(-99, 80)
+
+[node name="Sprite2D" type="Sprite2D" parent="GameplayLayer/FordFocus"]
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("2_50wog")
+
 [node name="Player" parent="GameplayLayer" instance=ExtResource("1_m802k")]
-position = Vector2(0, 62)
+position = Vector2(220, 62)
 
 [node name="TileMap" type="TileMap" parent="GameplayLayer"]
 position = Vector2(0, -911)
