@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://c7ff4v7yrgxf0"]
+[gd_scene load_steps=12 format=3 uid="uid://c7ff4v7yrgxf0"]
 
 [ext_resource type="Script" uid="uid://n6y336pvsstc" path="res://scripts/player/player.gd" id="1_dovo2"]
 [ext_resource type="Texture2D" uid="uid://cpoqv8khklhdp" path="res://assets/sprites/player/player_sheet.png" id="2_dovo2"]
@@ -25,19 +25,11 @@ region = Rect2(54, 0, 18, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0owmy"]
 atlas = ExtResource("2_dovo2")
-region = Rect2(0, 32, 18, 32)
+region = Rect2(36, 0, 18, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qek5x"]
 atlas = ExtResource("2_dovo2")
-region = Rect2(18, 32, 18, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5gtgg"]
-atlas = ExtResource("2_dovo2")
-region = Rect2(36, 32, 18, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_h17s1"]
-atlas = ExtResource("2_dovo2")
-region = Rect2(54, 32, 18, 32)
+region = Rect2(18, 0, 18, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_je7p5"]
 animations = [{
@@ -47,7 +39,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle",
-"speed": 0.0
+"speed": 0.5
 }, {
 "frames": [{
 "duration": 1.0,
@@ -67,16 +59,10 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qek5x")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5gtgg")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_h17s1")
 }],
 "loop": true,
 "name": &"walk",
-"speed": 6.0
+"speed": 5.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8afob"]
@@ -90,8 +76,8 @@ script = ExtResource("1_dovo2")
 texture_filter = 1
 scale = Vector2(5.625, 5.625)
 sprite_frames = SubResource("SpriteFrames_je7p5")
-animation = &"walk"
-frame_progress = 0.162207
+animation = &"idle"
+frame_progress = 0.96769
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_8afob")
