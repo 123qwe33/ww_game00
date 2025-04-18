@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 @onready var sprite = $AnimatedSprite2D # Ensure this matches your node name
 
-const SPEED = 50.0 # How fast the squirrel moves
+const SPEED = 100.0 # How fast the squirrel moves (Increased from 50.0)
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var direction = 1 # 1 for right, -1 for left
 
@@ -39,11 +39,11 @@ func _physics_process(delta):
 		sprite.play("walk")
 
 
-	# Flip sprite based on direction
-	if direction > 0:
-		sprite.flip_h = false
-	elif direction < 0:
-		sprite.flip_h = true
+	# Flip sprite based on direction (reversed for left-facing default sprite)
+	if direction > 0: # Moving Right
+		sprite.flip_h = true # Flip horizontally (to face right)
+	elif direction < 0: # Moving Left
+		sprite.flip_h = false # Don't flip (show default left-facing)
 
 	# Move the squirrel
 	move_and_slide()
