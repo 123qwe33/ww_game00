@@ -50,34 +50,36 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
 	else:
-		# Reset vertical velocity slightly when on floor to prevent bouncing issues
-		# velocity.y = max(velocity.y, 0) # Or adjust as needed
-		pass # Usually move_and_slide handles this well enough
+		# Reset vertical velocity when on floor
+		velocity.y = 0 # Or a small positive value if needed
 
 	# --- Handle State Logic ---
 	match current_state:
 		State.IDLE:
-			# Slow down horizontally when idle
 			velocity.x = move_toward(velocity.x, 0, SPEED / 2) # Gradual stop
 
 		State.WALKING:
 			# Set horizontal velocity
 			velocity.x = direction * SPEED
 
-			# Flip sprite based on direction
+			# Flip sprite based on direction (BEFORE move_and_slide for responsiveness)
 			if direction > 0: # Moving Right
 				sprite.flip_h = true
 			elif direction < 0: # Moving Left
 				sprite.flip_h = false
 
-			# Check for wall collision only when walking
-			if is_on_wall() and is_on_floor():
-				direction *= -1 # Reverse direction immediately
+	# --- Move (Common to both states) ---
+	move_and_slide() # Apply the calculated velocity
+
+	# --- Post-Move Checks (Specifically for WALKING state after moving) ---
+	if current_state == State.WALKING and is_on_floor(): # Only check for wall turns if walking and on floor
+		var collision = get_last_slide_collision()
+		if collision:
+			# Check if the collision normal is mostly horizontal (a wall)
+			# Use a threshold like 0.7 to avoid triggering on slight slopes mistaken for walls
+			if abs(collision.get_normal().x) > 0.7:
+				direction *= -1 # Reverse direction
 				# Don't reset the timer here, let it finish its walk duration
-
-	# --- Move ---
-	move_and_slide()
-
 
 func _on_direction_timer_timeout():
 	# Timer finished, transition to the other state
