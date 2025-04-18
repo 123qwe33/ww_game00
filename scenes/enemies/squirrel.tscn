@@ -84,3 +84,5 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_7m6n6")
 
 [node name="DirectionTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="DirectionTimer" to="." method="_on_direction_timer_timeout"]
