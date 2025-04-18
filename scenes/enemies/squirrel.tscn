@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://qyluy8f7x30h"]
+
+[ext_resource type="Script" uid="uid://bek4p5a2pitvw" path="res://scripts/enemies/squirrel.gd" id="1_7m6n6"]
+[ext_resource type="Texture2D" uid="uid://xgpv8oiorxgb" path="res://icon.png" id="1_hle4w"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7m6n6"]
+radius = 31.0
+height = 62.0
+
+[node name="Squirrel" type="CharacterBody2D"]
+script = ExtResource("1_7m6n6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_hle4w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_7m6n6")
