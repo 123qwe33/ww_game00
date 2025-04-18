@@ -1,28 +1,43 @@
 extends CharacterBody2D
 
-@onready var sprite = $Sprite2D # Or $AnimatedSprite2D
+@onready var sprite = $AnimatedSprite2D # Ensure this matches your node name
 
 const SPEED = 50.0 # How fast the squirrel moves
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var direction = 1 # 1 for right, -1 for left
 
 # Optional: Timer for changing direction
-@onready var direction_timer = $DirectionTimer
+@onready var direction_timer = $DirectionTimer # Uncomment if you add a Timer node
 
 func _ready():
-	# If using a Timer node named DirectionTimer:
-	# Set it to wait a random time before the first direction change
-	# direction_timer.wait_time = randf_range(2.0, 5.0)
-	# direction_timer.start()
-	pass # Placeholder if not using Timer yet
+	# Start walking animation
+	sprite.play("walk")
+	# Optional: randomize starting direction
+	direction = [-1, 1].pick_random()
+	# Optional: Timer setup
+	direction_timer.wait_time = randf_range(2.0, 5.0)
+	direction_timer.start()
+	pass
 
 func _physics_process(delta):
 	# Apply gravity
 	if not is_on_floor():
 		velocity.y += gravity * delta
 
-	# Move in the current direction
-	velocity.x = direction * SPEED
+	# Determine movement based on direction ONLY if on floor
+	if is_on_floor():
+		velocity.x = direction * SPEED
+	else:
+		# Optional: reduce horizontal speed significantly while falling
+		velocity.x = move_toward(velocity.x, 0, SPEED / 4)
+
+	# Play animation based on movement (already playing walk in _ready)
+	# If you add an idle animation, you'd handle switching here based on velocity.x
+	if abs(velocity.x) < 0.1 and is_on_floor():
+		sprite.play("idle")
+	elif is_on_floor(): # Check is_on_floor again in case it just landed
+		sprite.play("walk")
+
 
 	# Flip sprite based on direction
 	if direction > 0:
@@ -33,32 +48,17 @@ func _physics_process(delta):
 	# Move the squirrel
 	move_and_slide()
 
-	# Simple way to turn around at edges (requires checking if still on floor after move)
-	# Or if hitting a wall
-	if is_on_floor():
-		var floor_check_point = sign(velocity.x) * (sprite.get_rect().size.x / 2 + 5) # Check just ahead of the squirrel
-		var check_pos = Vector2(floor_check_point, sprite.get_rect().size.y / 2 + 5) # Check just below the front edge
-		var space_state = get_world_2d().direct_space_state
-		var query = PhysicsPointQueryParameters2D.new()
-		query.position = global_position + check_pos
-		query.collide_with_areas = false
-		query.collide_with_bodies = true
-		var result = space_state.intersect_point(query)
-
-		# If there's no floor ahead OR if the squirrel bumped a wall, turn around
-		if result.is_empty() or is_on_wall():
-			 # Need to check if the point check worked
-			 # Or just is_on_wall() is simpler if your level has walls
-			if is_on_wall(): # Simpler check
-				direction *= -1
-				# Optional: Reset timer if using one
-				# direction_timer.wait_time = randf_range(2.0, 5.0)
-				# direction_timer.start()
+	# Simpler check: If it hits a wall while on the floor, turn around
+	if is_on_wall() and is_on_floor():
+		direction *= -1
+		# Optional: Reset timer logic here...
+		# if direction_timer: direction_timer.start()
 
 
 # Optional: Function called when DirectionTimer times out
-# func _on_direction_timer_timeout():
-#     direction *= -1 # Reverse direction
-#     # Set a new random wait time
-#     direction_timer.wait_time = randf_range(2.0, 5.0)
-#     direction_timer.start() # Restart timer
+func _on_direction_timer_timeout():
+	direction *= -1 # Reverse direction
+	# Set a new random wait time
+	direction_timer.wait_time = randf_range(2.0, 5.0)
+	# Optional: Make sure timer is only started once if needed, or restart here
+	# direction_timer.start()
