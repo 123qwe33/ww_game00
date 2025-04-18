@@ -28,11 +28,19 @@ func _physics_process(delta):
 		sprite.flip_h = true  # Facing left
 	# Note: If direction is 0, the sprite keeps its last orientation.
 
+	# Set velocity based on direction
 	if direction:
 		velocity.x = direction * SPEED
-		sprite.play("walk")
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED) # Simple friction/stop
+	
+	# Handle animations based on state
+	if not is_on_floor():
+		# Play jump animation when in the air
+		sprite.play("jump")
+	elif direction:
+		sprite.play("walk")
+	else:
 		sprite.play("idle")
 
 	move_and_slide() # Essential CharacterBody2D function

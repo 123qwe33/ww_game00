@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c7ff4v7yrgxf0"]
+[gd_scene load_steps=13 format=3 uid="uid://c7ff4v7yrgxf0"]
 
 [ext_resource type="Script" uid="uid://n6y336pvsstc" path="res://scripts/player/player.gd" id="1_dovo2"]
 [ext_resource type="Texture2D" uid="uid://cpoqv8khklhdp" path="res://assets/sprites/player/player_sheet.png" id="2_dovo2"]
@@ -6,6 +6,10 @@
 [sub_resource type="AtlasTexture" id="AtlasTexture_dovo2"]
 atlas = ExtResource("2_dovo2")
 region = Rect2(0, 32, 18, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5gtgg"]
+atlas = ExtResource("2_dovo2")
+region = Rect2(18, 32, 18, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gmlin"]
 atlas = ExtResource("2_dovo2")
@@ -43,6 +47,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_5gtgg")
+}],
+"loop": true,
+"name": &"jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_gmlin")
 }, {
 "duration": 1.0,
@@ -76,8 +88,7 @@ script = ExtResource("1_dovo2")
 texture_filter = 1
 scale = Vector2(5.625, 5.625)
 sprite_frames = SubResource("SpriteFrames_je7p5")
-animation = &"idle"
-frame_progress = 0.96769
+animation = &"jump"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_8afob")
