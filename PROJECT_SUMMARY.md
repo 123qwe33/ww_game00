@@ -8,6 +8,8 @@
 - CharacterBody2D with sprite and collision shape
 - Movement: gravity, left/right controls, jumping
 - Sprite flips to face movement direction
+- Jump animation plays when airborne (with time threshold to prevent flicker on uneven terrain)
+- Added to "player" group for enemy detection
 
 ## Level Design
 - Basic level scene (level_01.tscn)
@@ -17,10 +19,13 @@
 
 ## Squirrel NPC
 - CharacterBody2D with AnimatedSprite2D
-- Simple state machine (IDLE, WALKING)
+- State machine with three states (IDLE, WALKING, FLEEING)
 - Timer-based state transitions with random durations
 - Wall collision detection and direction reversal
 - Sprite flipping based on movement direction
+- Player proximity detection (flees when player gets too close)
+- Returns to normal behavior when player moves away
+- Faster movement speed when fleeing
 
 ## Next Steps
 - Player-squirrel interaction (Area2D)
