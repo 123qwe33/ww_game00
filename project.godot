@@ -11,12 +11,13 @@ config_version=5
 [application]
 
 config/name="ww_game00"
-run/main_scene="uid://cam6hf1neqsgp"
+run/main_scene="uid://sx2vu5toldhl"
 config/features=PackedStringArray("4.4")
 config/icon="res://icon.png"
 
 [gui]
 
+theme/custom="uid://epd3h3ptpsir"
 common/drop_mouse_on_gui_input_disabled=true
 
 [mono]
