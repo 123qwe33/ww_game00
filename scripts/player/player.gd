@@ -1,5 +1,9 @@
 extends CharacterBody2D
 
+# Add to "player" group so squirrels can detect us
+func _ready():
+	add_to_group("player")
+
 @onready var sprite = $AnimatedSprite2D
 
 const SPEED = 300.0

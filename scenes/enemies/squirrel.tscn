@@ -66,7 +66,7 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7m6n6"]
-radius = 16.0
+radius = 23.0
 height = 60.0
 
 [node name="Squirrel" type="CharacterBody2D"]
@@ -79,7 +79,7 @@ animation = &"idle"
 frame_progress = 0.38022
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(2, 19)
+position = Vector2(1, 12)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_7m6n6")
 
