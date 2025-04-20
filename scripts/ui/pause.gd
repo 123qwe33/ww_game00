@@ -1,11 +1,13 @@
 extends Control
 
+@onready var canvas_layer = $CanvasLayer # Add this line
+
 # Path to your main menu scene
 const MAIN_MENU_PATH = "res://scenes/ui/main_menu.tscn"
 
 func _ready():
 	# Hide the menu initially (should also be set in the scene file)
-	hide()
+	canvas_layer.hide()
 	# Ensure this node processes input even when the scene tree is paused
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
@@ -24,7 +26,7 @@ func toggle_pause():
 	# Set the opposite state
 	get_tree().paused = not is_paused
 	# Show/hide the pause menu accordingly
-	visible = not is_paused
+	canvas_layer.visible = not is_paused
 
 func _on_resume_button_pressed():
 	# Simply unpause and hide the menu
