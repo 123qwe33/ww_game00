@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bqo4ae0odgdmt"]
+
+[ext_resource type="Texture2D" uid="uid://dyeq2d8o46yj7" path="res://assets/environment/level_01/tilesetOpenGame_1.png" id="1_0kswr"]
+[ext_resource type="Script" uid="uid://bxcxytjqkd2mx" path="res://scripts/components/boulder.gd" id="1_ce3s1"]
+
+[node name="Boulder" type="RigidBody2D"]
+script = ExtResource("1_ce3s1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(7, 7)
+texture = ExtResource("1_0kswr")
+region_enabled = true
+region_rect = Rect2(33, 34, 29, 30)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+scale = Vector2(7, 7.07)
+polygon = PackedVector2Array(-10, -7.92064, 1, -14.8512, 8, -12.871, 8, -1.98016, 14, 4.9504, 14, 13.8611, -12, 14.8512, -15, 11.881, -14, 3.96032)
