@@ -13,6 +13,12 @@ func _ready():
 
 # Called automatically by the engine for input not handled elsewhere
 func _unhandled_input(event):
+	# Get the currently active scene's root node
+	var current_scene = get_tree().current_scene
+	# Check if the current scene is the main menu
+	if current_scene and current_scene.name == "MainMenu":
+		# If the current scene is the main menu, ignore input events
+		return
 	# Check if the 'pause' action was just pressed
 	if event.is_action_pressed("pause"):
 		# Toggle pause state and menu visibility
@@ -42,6 +48,7 @@ func _on_quit_to_menu_button_pressed():
 	get_tree().paused = false
 	# Change to the main menu scene
 	var error = get_tree().change_scene_to_file(MAIN_MENU_PATH)
+	canvas_layer.hide()
 	if error != OK:
 		print("Error loading main menu: ", error)
 
