@@ -1,0 +1,73 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtmuuiy76k4oi"]
+
+[ext_resource type="Script" uid="uid://b6u5322fkf5d3" path="res://scripts/ui/pause.gd" id="1_xld5c"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_87aya"]
+line_spacing = -22.0
+font_size = 72
+
+[node name="PauseMenu" type="Control"]
+visible = false
+z_index = 10
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_xld5c")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="CenterContainer" type="CenterContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 31
+
+[node name="Label" type="Label" parent="MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "The Adventures
+of
+Weffy & Wumby"
+label_settings = SubResource("LabelSettings_87aya")
+horizontal_alignment = 1
+
+[node name="ButtonContainer" type="VBoxContainer" parent="MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ResumeButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+text = "Resume Game"
+
+[node name="QuitToMenuButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+text = "Quit to Main Menu"
+
+[node name="QuitToDesktopButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer/ButtonContainer"]
+layout_mode = 2
+text = "Quit to Desktop"
+
+[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/ButtonContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/ButtonContainer/QuitToMenuButton" to="." method="_on_quit_to_menu_button_pressed"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/ButtonContainer/QuitToDesktopButton" to="." method="_on_quit_to_desktop_button_pressed"]
