@@ -1,10 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://sx2vu5toldhl"]
+[gd_scene load_steps=5 format=3 uid="uid://sx2vu5toldhl"]
 
 [ext_resource type="Script" uid="uid://bxenqt08r8gvw" path="res://scripts/ui/main_menu.gd" id="1_sl1te"]
+[ext_resource type="Theme" uid="uid://epd3h3ptpsir" path="res://assets/theme.tres" id="2_fe2o3"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_87aya"]
 line_spacing = -22.0
 font_size = 72
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fe2o3"]
+bg_color = Color(0.294188, 0.655352, 0.752429, 1)
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -52,6 +56,16 @@ horizontal_alignment = 1
 
 [node name="Button" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
+theme = ExtResource("2_fe2o3")
+theme_override_font_sizes/font_size = 37
+theme_override_styles/hover = SubResource("StyleBoxFlat_fe2o3")
 text = "Start Game"
 
+[node name="QuitToDesktopButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_fe2o3")
+theme_override_font_sizes/font_size = 37
+text = "Quit to Desktop"
+
 [connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/Button" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/QuitToDesktopButton" to="." method="_on_quit_to_desktop_button_pressed"]
