@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://sx2vu5toldhl"]
+[gd_scene load_steps=4 format=3 uid="uid://sx2vu5toldhl"]
 
 [ext_resource type="Script" uid="uid://bxenqt08r8gvw" path="res://scripts/ui/main_menu.gd" id="1_sl1te"]
 [ext_resource type="Theme" uid="uid://epd3h3ptpsir" path="res://assets/theme.tres" id="2_fe2o3"]
@@ -6,9 +6,6 @@
 [sub_resource type="LabelSettings" id="LabelSettings_87aya"]
 line_spacing = -22.0
 font_size = 72
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fe2o3"]
-bg_color = Color(0.294188, 0.655352, 0.752429, 1)
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -20,12 +17,22 @@ grow_vertical = 2
 script = ExtResource("1_sl1te")
 
 [node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.0166667, 1, 0, 1)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.3159, 0.81, 0.571185, 0.52549)
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -58,7 +65,6 @@ horizontal_alignment = 1
 layout_mode = 2
 theme = ExtResource("2_fe2o3")
 theme_override_font_sizes/font_size = 37
-theme_override_styles/hover = SubResource("StyleBoxFlat_fe2o3")
 text = "Start Game"
 
 [node name="QuitToDesktopButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer"]
