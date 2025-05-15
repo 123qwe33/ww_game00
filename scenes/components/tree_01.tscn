@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://de0rquhbjtq8y"]
+
+[ext_resource type="Texture2D" uid="uid://djjh18wjwjaq0" path="res://assets/sprites/statics/tree01.png" id="1_6uia6"]
+
+[node name="tree00" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(14, 14)
+texture = ExtResource("1_6uia6")
+region_rect = Rect2(0, 27, 0, 0)

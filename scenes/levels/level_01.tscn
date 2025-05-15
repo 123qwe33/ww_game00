@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=4 uid="uid://cam6hf1neqsgp"]
+[gd_scene load_steps=12 format=4 uid="uid://cam6hf1neqsgp"]
 
 [ext_resource type="Texture2D" uid="uid://bl07lth33wqug" path="res://assets/environment/level_01/background.png" id="1_2djvx"]
 [ext_resource type="PackedScene" uid="uid://c7ff4v7yrgxf0" path="res://scenes/player/player.tscn" id="1_m802k"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://qyluy8f7x30h" path="res://scenes/enemies/squirrel.tscn" id="4_qdh5e"]
 [ext_resource type="PackedScene" uid="uid://bqo4ae0odgdmt" path="res://scenes/components/boulder.tscn" id="8_kfebt"]
 [ext_resource type="PackedScene" uid="uid://b4slcsd74pbsi" path="res://scenes/components/tree_00.tscn" id="9_r72dd"]
+[ext_resource type="PackedScene" uid="uid://de0rquhbjtq8y" path="res://scenes/components/tree_01.tscn" id="11_ijn0p"]
 
 [node name="Level01" type="Node2D"]
 
@@ -206,7 +207,7 @@ z_index = -1
 position = Vector2(1795, -19)
 
 [node name="tree01" parent="GameplayLayer" instance=ExtResource("9_r72dd")]
-position = Vector2(1073, -17)
+position = Vector2(2698, -214)
 
 [node name="tree03" parent="GameplayLayer" instance=ExtResource("9_r72dd")]
 position = Vector2(1604, -1)
@@ -214,3 +215,10 @@ position = Vector2(1604, -1)
 [node name="Camera2D" type="Camera2D" parent="."]
 script = ExtResource("2_i2aat")
 target_node_path = NodePath("../GameplayLayer/Player")
+
+[node name="tree00" parent="." instance=ExtResource("11_ijn0p")]
+position = Vector2(1037, 4)
+
+[node name="tree01" parent="." instance=ExtResource("11_ijn0p")]
+z_index = -1
+position = Vector2(2411, -193)
