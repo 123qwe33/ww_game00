@@ -15,6 +15,8 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var current_state = State.IDLE
 var direction = 1 # 1 for right, -1 for left
 var player = null  # Reference to player
+var can_change_direction = true
+var direction_change_cooldown = 0.5 # seconds
 
 # Define duration ranges for states (adjust as needed)
 const IDLE_DURATION_MIN = 2.0
@@ -145,19 +147,25 @@ func update_sprite_direction():
 		ledge_detector.position.x = -abs(ledge_detector.position.x)
 		ledge_detector.target_position = Vector2(0, 40)
 		
+func change_direction_with_cooldown():
+	direction *= -1 # Reverse direction
+	can_change_direction = false
+	# Create a timer to reset the cooldown
+	get_tree().create_timer(direction_change_cooldown).timeout.connect(func(): can_change_direction = true)
+
 func check_wall_collision():
 	var collision = get_last_slide_collision()
 	if collision:
 		# Check if the collision normal is mostly horizontal (a wall)
 		# Use a threshold like 0.7 to avoid triggering on slight slopes mistaken for walls
-		if abs(collision.get_normal().x) > 0.7:
-			direction *= -1 # Reverse direction
+		if abs(collision.get_normal().x) > 0.7 and can_change_direction:
+			change_direction_with_cooldown()
 			# Don't reset the timer here, let it finish its walk duration
 
 func check_ledge_detection():
-	if is_on_floor() and ledge_detector.is_colliding() == false:
+	if is_on_floor() and ledge_detector.is_colliding() == false and can_change_direction:
 		# No floor detected ahead, turn around
-		direction *= -1 # Reverse direction
+		change_direction_with_cooldown()
 
 func _on_direction_timer_timeout():
 	# Timer finished, transition to the other state
