@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://dyeq2d8o46yj7" path="res://assets/environment/level_01/tilesetOpenGame_1.png" id="1_0kswr"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_0kswr"]
-friction = 0.07
+friction = 0.17
 
 [node name="Boulder" type="RigidBody2D" groups=["pushable"]]
 mass = 0.6
