@@ -7,7 +7,7 @@ func _ready():
 @onready var sprite = $AnimatedSprite2D
 
 # Death settings
-const DEATH_Y_THRESHOLD = 1000  # How far the player can fall before dying
+const DEATH_Y_THRESHOLD = 2000  # How far the player can fall before dying
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -500.0
