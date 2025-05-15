@@ -182,6 +182,12 @@ z_index = -2
 tile_map_data = PackedByteArray("AAAlAAkABAAAAAQAAAAmAAkABAAAAAQAAAAnAAkABAAAAAQAAAAjAAkABAABAAEAABAkAAkABAAAAAQAAAAoAAkABAABAAEAAAAnAAoABAAAAAQAAAAmAAoABAAAAAQAAAAlAAoABAAAAAQAAAAkAAoABAAAAAQAAAAjAAoABAAAAAQAAAAiAAoABAAAAAQAAAA=")
 tile_set = ExtResource("3_uvc87")
 
+[node name="LayerTree" type="TileMapLayer" parent="GameplayLayer/TileMap"]
+z_index = -1
+position = Vector2(0, -7)
+tile_map_data = PackedByteArray("AAAmAAQAAgAGAAAAAAA=")
+tile_set = ExtResource("3_uvc87")
+
 [node name="Boulder" parent="GameplayLayer" instance=ExtResource("8_kfebt")]
 position = Vector2(-1623, -948)
 mass = 0.307
