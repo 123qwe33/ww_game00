@@ -17,6 +17,7 @@ const PUSH_FORCE = 100.0 # Adjust this value later!
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var air_time = 0.0  # Tracks how long player has been in the air
+var inventory: Dictionary = {}  # Tracks items collected by the player
 
 func _physics_process(delta):
 	# Check for death by falling
@@ -95,4 +96,16 @@ func die(cause: GameManager.DeathCause = GameManager.DeathCause.CUSTOM) -> void:
 
 
 func _on_pickup_object_picked_up(item_id) -> void:
-	print("Picked up " + item_id)
+	# Check if the item is already in inventory
+	if inventory.has(item_id):
+		# If exists, increment quantity
+		inventory[item_id] += 1
+	else:
+		# If new, add to inventory with quantity 1
+		inventory[item_id] = 1
+	
+	print("Picked up " + item_id + " (Total: " + str(inventory[item_id]) + ")")
+
+func get_player_inventory() -> Dictionary:
+	"""Returns a copy of the player's current inventory"""
+	return inventory.duplicate()
