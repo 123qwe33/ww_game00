@@ -2,4 +2,5 @@
 
 [ext_resource type="PackedScene" uid="uid://p7f7358eb2uo" path="res://scenes/components/pickup_object.tscn" id="1_l26m2"]
 
-[node name="PickupObject" instance=ExtResource("1_l26m2")]
+[node name="Nut" instance=ExtResource("1_l26m2")]
+item_id = "nut"
