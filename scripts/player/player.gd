@@ -92,3 +92,7 @@ func die(cause: GameManager.DeathCause = GameManager.DeathCause.CUSTOM) -> void:
 	
 	# Use the GameManager to handle the death
 	GameManager.kill_player(cause)
+
+
+func _on_pickup_object_picked_up(item_id) -> void:
+	print("Picked up " + item_id)

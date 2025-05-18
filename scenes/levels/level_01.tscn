@@ -155,7 +155,7 @@ polygon = PackedVector2Array(-195, -37, -140, -81, -10, -78, 40, -43, 121, -10, 
 one_way_collision = true
 one_way_collision_margin = 2.2
 
-[node name="Player" parent="GameplayLayer" instance=ExtResource("1_m802k")]
+[node name="Player" parent="GameplayLayer" groups=["player"] instance=ExtResource("1_m802k")]
 position = Vector2(128, 62)
 
 [node name="Squirrel" parent="GameplayLayer" instance=ExtResource("4_qdh5e")]
@@ -219,9 +219,6 @@ position = Vector2(2698, -214)
 [node name="tree03" parent="GameplayLayer" instance=ExtResource("9_r72dd")]
 position = Vector2(1604, -1)
 
-[node name="nut" parent="GameplayLayer" instance=ExtResource("10_jmes4")]
-position = Vector2(3837, -429)
-
 [node name="Camera2D" type="Camera2D" parent="."]
 script = ExtResource("2_i2aat")
 target_node_path = NodePath("../GameplayLayer/Player")
@@ -232,3 +229,8 @@ position = Vector2(1037, 4)
 [node name="tree01" parent="." instance=ExtResource("11_ijn0p")]
 z_index = -1
 position = Vector2(2411, -193)
+
+[node name="PickupObject" parent="." instance=ExtResource("10_jmes4")]
+position = Vector2(3783, -437)
+
+[connection signal="picked_up" from="PickupObject" to="GameplayLayer/Player" method="_on_pickup_object_picked_up"]
