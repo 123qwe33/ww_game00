@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://c075dhslf0i1h"]
+[gd_scene load_steps=3 format=3 uid="uid://c075dhslf0i1h"]
 
 [ext_resource type="PackedScene" uid="uid://p7f7358eb2uo" path="res://scenes/components/pickup_object.tscn" id="1_l26m2"]
+[ext_resource type="Texture2D" uid="uid://dwm5rky4raqqi" path="res://assets/sprites/statics/nut.png" id="2_44y3n"]
 
 [node name="Nut" instance=ExtResource("1_l26m2")]
 item_id = "nut"
+
+[node name="Sprite2D" parent="." index="0"]
+scale = Vector2(4, 4)
+texture = ExtResource("2_44y3n")
