@@ -141,16 +141,29 @@ func drop_item(item_id: String) -> void:
 	# Reduce the quantity in inventory
 	inventory[item_id] -= 1
 	
+	# Store if we're dropping the current held item
+	var was_current_item = (current_held_item == item_id)
+	
 	# If quantity is zero, remove the item from inventory
 	if inventory[item_id] <= 0:
 		inventory.erase(item_id)
-		# If we dropped the currently held item, clear it
-		if current_held_item == item_id:
-			current_held_item = ""
-			update_held_item_display()
 	
 	# Spawn the dropped item in the world
 	spawn_dropped_item(item_id)
+	
+	# If we dropped the currently held item, update current_held_item
+	if was_current_item:
+		# If inventory is not empty, select the next item
+		if inventory.size() > 0:
+			# Get the first available item from inventory
+			current_held_item = inventory.keys()[0]
+			print("Now holding: " + current_held_item)
+		else:
+			# No items left in inventory
+			current_held_item = ""
+		
+		# Update the visual display
+		update_held_item_display()
 	
 	print("Player dropped " + item_id)
 
