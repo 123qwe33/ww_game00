@@ -1,8 +1,5 @@
 extends Node2D
 
-# Signal emitted when object is picked up
-signal picked_up
-
 # If true, the object will be removed after being picked up
 @export var remove_on_pickup: bool = true
 # Optional item ID or type to identify what was picked up
@@ -15,10 +12,10 @@ func _ready():
 	$Area2D.body_entered.connect(_on_Area2D_body_entered)
 
 func _on_Area2D_body_entered(body):
-	# Check if the colliding body is the player
-	if body.is_in_group("player"):
-		# Emit the picked_up signal
-		picked_up.emit(item_id)
+	# Check if the colliding body can collect items (has the method)
+	if body.has_method("collect_item"):
+		# Call the collect_item method on the body
+		body.collect_item(item_id)
 		
 		# Play pickup sound if available
 		if pickup_sound != null and has_node("AudioStreamPlayer"):

@@ -17,6 +17,7 @@ var direction = 1 # 1 for right, -1 for left
 var player = null  # Reference to player
 var can_change_direction = true
 var direction_change_cooldown = 0.5 # seconds
+var inventory: Dictionary = {}  # Tracks items collected by the squirrel
 
 # Define duration ranges for states (adjust as needed)
 const IDLE_DURATION_MIN = 2.0
@@ -25,6 +26,9 @@ const WALK_DURATION_MIN = 3.0
 const WALK_DURATION_MAX = 6.0
 
 func _ready():
+	# Add to "squirrel" group for detection by pickup objects
+	add_to_group("squirrel")
+	
 	# Start in IDLE state
 	set_state(State.IDLE)
 
@@ -175,3 +179,14 @@ func _on_direction_timer_timeout():
 	elif current_state == State.WALKING:
 		set_state(State.IDLE)
 	# Note: We ignore timer while in FLEEING state
+
+func collect_item(item_id: String) -> void:
+	# Check if the item is already in inventory
+	if inventory.has(item_id):
+		# If exists, increment quantity
+		inventory[item_id] += 1
+	else:
+		# If new, add to inventory with quantity 1
+		inventory[item_id] = 1
+	
+	print("Squirrel picked up " + item_id + " (Total: " + str(inventory[item_id]) + ")")

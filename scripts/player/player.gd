@@ -95,7 +95,7 @@ func die(cause: GameManager.DeathCause = GameManager.DeathCause.CUSTOM) -> void:
 	GameManager.kill_player(cause)
 
 
-func _on_pickup_object_picked_up(item_id) -> void:
+func collect_item(item_id: String) -> void:
 	# Check if the item is already in inventory
 	if inventory.has(item_id):
 		# If exists, increment quantity
@@ -104,7 +104,7 @@ func _on_pickup_object_picked_up(item_id) -> void:
 		# If new, add to inventory with quantity 1
 		inventory[item_id] = 1
 	
-	print("Picked up " + item_id + " (Total: " + str(inventory[item_id]) + ")")
+	print("Player picked up " + item_id + " (Total: " + str(inventory[item_id]) + ")")
 
 func get_player_inventory() -> Dictionary:
 	"""Returns a copy of the player's current inventory"""
