@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://41w15m4pp4aq"]
+
+[ext_resource type="PackedScene" uid="uid://p7f7358eb2uo" path="res://scenes/components/pickup_object.tscn" id="1_btbyp"]
+[ext_resource type="Texture2D" uid="uid://c52ajx3wmcajq" path="res://assets/sprites/statics/shears.png" id="2_btbyp"]
+
+[node name="Shears" instance=ExtResource("1_btbyp")]
+item_id = "shears"
+
+[node name="Sprite2D" parent="." index="0"]
+scale = Vector2(4, 4)
+texture = ExtResource("2_btbyp")
