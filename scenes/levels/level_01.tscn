@@ -192,10 +192,6 @@ tile_map_data = PackedByteArray("AAAmAAQAAgAGAAAAAAA=")
 tile_set = ExtResource("3_uvc87")
 
 [node name="Boulder" parent="GameplayLayer" instance=ExtResource("8_kfebt")]
-position = Vector2(-1623, -948)
-mass = 0.307
-
-[node name="Boulder2" parent="GameplayLayer" instance=ExtResource("8_kfebt")]
 position = Vector2(1475, 99)
 mass = 0.307
 
