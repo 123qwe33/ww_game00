@@ -3,6 +3,7 @@ extends CharacterBody2D
 @onready var sprite = $AnimatedSprite2D
 @onready var direction_timer = $DirectionTimer
 @onready var ledge_detector = $RayCast2D
+@onready var held_item_sprite = $HeldItem/Sprite2D
 
 # States Enum
 enum State { IDLE, WALKING, FLEEING }
@@ -18,6 +19,7 @@ var player = null  # Reference to player
 var can_change_direction = true
 var direction_change_cooldown = 0.5 # seconds
 var inventory: Dictionary = {}  # Tracks items collected by the squirrel
+var current_held_item: String = ""  # ID of the currently held item
 
 # Define duration ranges for states (adjust as needed)
 const IDLE_DURATION_MIN = 2.0
@@ -28,6 +30,9 @@ const WALK_DURATION_MAX = 6.0
 func _ready():
 	# Add to "squirrel" group for detection by pickup objects
 	add_to_group("squirrel")
+	
+	# Initialize the held item sprite to be invisible at start
+	held_item_sprite.visible = false
 	
 	# Start in IDLE state
 	set_state(State.IDLE)
@@ -145,11 +150,15 @@ func update_sprite_direction():
 		# Position raycast to right side
 		ledge_detector.position.x = abs(ledge_detector.position.x)
 		ledge_detector.target_position = Vector2(0, 40)
+		# Position held item to the right of squirrel
+		$HeldItem.position.x = abs($HeldItem.position.x)
 	elif direction < 0: # Moving Left
 		sprite.flip_h = false
 		# Position raycast to left side
 		ledge_detector.position.x = -abs(ledge_detector.position.x)
 		ledge_detector.target_position = Vector2(0, 40)
+		# Position held item to the left of squirrel
+		$HeldItem.position.x = -abs($HeldItem.position.x)
 		
 func change_direction_with_cooldown():
 	direction *= -1 # Reverse direction
@@ -189,4 +198,27 @@ func collect_item(item_id: String) -> void:
 		# If new, add to inventory with quantity 1
 		inventory[item_id] = 1
 	
+	# Update the currently held item
+	current_held_item = item_id
+	update_held_item_display()
+	
 	print("Squirrel picked up " + item_id + " (Total: " + str(inventory[item_id]) + ")")
+	
+func update_held_item_display() -> void:
+	# Hide the held item sprite by default
+	held_item_sprite.visible = false
+	
+	if current_held_item.is_empty():
+		return
+		
+	# For now, hardcode item textures based on ID
+	# In a more complete implementation, this would use a resource system
+	match current_held_item:
+		"nut":
+			held_item_sprite.texture = load("res://assets/sprites/statics/nut.png")
+			held_item_sprite.visible = true
+			held_item_sprite.scale = Vector2(1.5, 1.5)  # Smaller than player's held item
+		# Add more items here as needed
+		_:
+			# Generic or unknown item, don't show anything
+			pass

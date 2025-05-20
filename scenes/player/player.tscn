@@ -92,3 +92,8 @@ animation = &"walk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_8afob")
+
+[node name="HeldItem" type="Node2D" parent="."]
+position = Vector2(58, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="HeldItem"]

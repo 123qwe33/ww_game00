@@ -3,8 +3,12 @@ extends CharacterBody2D
 # Add to "player" group so squirrels can detect us
 func _ready():
 	add_to_group("player")
+	
+	# Initialize the held item sprite to be invisible at start
+	held_item_sprite.visible = false
 
 @onready var sprite = $AnimatedSprite2D
+@onready var held_item_sprite = $HeldItem/Sprite2D
 
 # Death settings
 const DEATH_Y_THRESHOLD = 2000  # How far the player can fall before dying
@@ -18,6 +22,7 @@ const PUSH_FORCE = 100.0 # Adjust this value later!
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var air_time = 0.0  # Tracks how long player has been in the air
 var inventory: Dictionary = {}  # Tracks items collected by the player
+var current_held_item: String = ""  # ID of the currently held item
 
 func _physics_process(delta):
 	# Check for death by falling
@@ -42,8 +47,12 @@ func _physics_process(delta):
 	# Flip the sprite based on direction
 	if direction > 0:
 		sprite.flip_h = false # Facing right (assuming default sprite faces right)
+		# Position held item to the right of player
+		$HeldItem.position.x = abs($HeldItem.position.x)
 	elif direction < 0:
 		sprite.flip_h = true  # Facing left
+		# Position held item to the left of player
+		$HeldItem.position.x = -abs($HeldItem.position.x)
 		# Note: If direction is 0, the sprite keeps its last orientation.
 
 	# Set velocity based on direction
@@ -104,7 +113,30 @@ func collect_item(item_id: String) -> void:
 		# If new, add to inventory with quantity 1
 		inventory[item_id] = 1
 	
+	# Update the currently held item
+	current_held_item = item_id
+	update_held_item_display()
+	
 	print("Player picked up " + item_id + " (Total: " + str(inventory[item_id]) + ")")
+
+func update_held_item_display() -> void:
+	# Hide the held item sprite by default
+	held_item_sprite.visible = false
+	
+	if current_held_item.is_empty():
+		return
+		
+	# For now, hardcode item textures based on ID
+	# In a more complete implementation, this would use a resource system
+	match current_held_item:
+		"nut":
+			held_item_sprite.texture = load("res://assets/sprites/statics/nut.png")
+			held_item_sprite.visible = true
+			held_item_sprite.scale = Vector2(2, 2)  # Smaller than the pickup
+		# Add more items here as needed
+		_:
+			# Generic or unknown item, don't show anything
+			pass
 
 func get_player_inventory() -> Dictionary:
 	"""Returns a copy of the player's current inventory"""
