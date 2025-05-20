@@ -23,6 +23,8 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var air_time = 0.0  # Tracks how long player has been in the air
 var inventory: Dictionary = {}  # Tracks items collected by the player
 var current_held_item: String = ""  # ID of the currently held item
+const MAX_INVENTORY_SIZE = 2  # Maximum number of different items player can carry
+const MAX_STACK_SIZE = 99  # Maximum number of the same item player can carry
 
 func _physics_process(delta):
 	# Check for death by falling
@@ -105,7 +107,16 @@ func die(cause: GameManager.DeathCause = GameManager.DeathCause.CUSTOM) -> void:
 
 
 func collect_item(item_id: String) -> void:
-	# Check if the item is already in inventory
+	# First check if we need to drop an item due to inventory limits
+	if inventory.size() >= MAX_INVENTORY_SIZE and not inventory.has(item_id):
+		# We're at capacity and trying to add a new type of item, so drop an item
+		drop_item(current_held_item)
+	elif inventory.has(item_id) and inventory[item_id] >= MAX_STACK_SIZE:
+		# This stack is at capacity, don't add more
+		print("Can't carry any more " + item_id)
+		return
+	
+	# Now add the item to inventory
 	if inventory.has(item_id):
 		# If exists, increment quantity
 		inventory[item_id] += 1
@@ -118,6 +129,52 @@ func collect_item(item_id: String) -> void:
 	update_held_item_display()
 	
 	print("Player picked up " + item_id + " (Total: " + str(inventory[item_id]) + ")")
+
+func drop_item(item_id: String) -> void:
+	if not inventory.has(item_id) or inventory[item_id] <= 0:
+		return  # Can't drop an item we don't have
+	
+	# Reduce the quantity in inventory
+	inventory[item_id] -= 1
+	
+	# If quantity is zero, remove the item from inventory
+	if inventory[item_id] <= 0:
+		inventory.erase(item_id)
+		# If we dropped the currently held item, clear it
+		if current_held_item == item_id:
+			current_held_item = ""
+			update_held_item_display()
+	
+	# Spawn the dropped item in the world
+	spawn_dropped_item(item_id)
+	
+	print("Player dropped " + item_id)
+
+func spawn_dropped_item(item_id: String) -> void:
+	# Get the path to the scene based on item_id
+	var scene_path = ""
+	match item_id:
+		"nut":
+			scene_path = "res://scenes/components/nut.tscn"
+		"shears":
+			scene_path = "res://scenes/components/shears.tscn"
+		# Add more items here as needed
+		_:
+			print("No scene defined for item: " + item_id)
+			return
+	
+	# Load and instantiate the scene
+	var item_scene = load(scene_path)
+	if item_scene:
+		var item_instance = item_scene.instantiate()
+		# Add the item to the scene
+		get_tree().current_scene.add_child(item_instance)
+		# Position it slightly in front of the player
+		var offset = 50.0  # Distance in front of player
+		var direction_factor = -1 if sprite.flip_h else 1  # Check which way player is facing
+		item_instance.global_position = global_position + Vector2(direction_factor * offset, 0)
+	else:
+		print("Failed to load scene: " + scene_path)
 
 func update_held_item_display() -> void:
 	# Hide the held item sprite by default

@@ -20,6 +20,8 @@ var can_change_direction = true
 var direction_change_cooldown = 0.5 # seconds
 var inventory: Dictionary = {}  # Tracks items collected by the squirrel
 var current_held_item: String = ""  # ID of the currently held item
+const MAX_INVENTORY_SIZE = 1  # Squirrels can only hold 1 item at a time
+const MAX_STACK_SIZE = 1  # Squirrels don't stack items
 
 # Define duration ranges for states (adjust as needed)
 const IDLE_DURATION_MIN = 2.0
@@ -190,7 +192,14 @@ func _on_direction_timer_timeout():
 	# Note: We ignore timer while in FLEEING state
 
 func collect_item(item_id: String) -> void:
-	# Check if the item is already in inventory
+	# Squirrels are simpler - they just drop whatever they're holding if they pick up something new
+	if inventory.size() >= MAX_INVENTORY_SIZE:
+		# Drop the currently held item first
+		var old_item = current_held_item
+		if old_item != "":
+			drop_item(old_item)
+	
+	# Now add the new item to inventory
 	if inventory.has(item_id):
 		# If exists, increment quantity
 		inventory[item_id] += 1
@@ -203,6 +212,52 @@ func collect_item(item_id: String) -> void:
 	update_held_item_display()
 	
 	print("Squirrel picked up " + item_id + " (Total: " + str(inventory[item_id]) + ")")
+
+func drop_item(item_id: String) -> void:
+	if not inventory.has(item_id) or inventory[item_id] <= 0:
+		return  # Can't drop an item we don't have
+	
+	# Reduce the quantity in inventory
+	inventory[item_id] -= 1
+	
+	# If quantity is zero, remove the item from inventory
+	if inventory[item_id] <= 0:
+		inventory.erase(item_id)
+		# If we dropped the currently held item, clear it
+		if current_held_item == item_id:
+			current_held_item = ""
+			update_held_item_display()
+	
+	# Spawn the dropped item in the world
+	spawn_dropped_item(item_id)
+	
+	print("Squirrel dropped " + item_id)
+
+func spawn_dropped_item(item_id: String) -> void:
+	# Get the path to the scene based on item_id
+	var scene_path = ""
+	match item_id:
+		"nut":
+			scene_path = "res://scenes/components/nut.tscn"
+		"shears":
+			scene_path = "res://scenes/components/shears.tscn"
+		# Add more items here as needed
+		_:
+			print("No scene defined for item: " + item_id)
+			return
+	
+	# Load and instantiate the scene
+	var item_scene = load(scene_path)
+	if item_scene:
+		var item_instance = item_scene.instantiate()
+		# Add the item to the scene
+		get_tree().current_scene.add_child(item_instance)
+		# Position it slightly in front of the squirrel
+		var offset = 30.0  # Distance in front of squirrel (smaller than player)
+		var direction_factor = 1 if sprite.flip_h else -1  # Check which way squirrel is facing (flipped from player due to different sprite orientation)
+		item_instance.global_position = global_position + Vector2(direction_factor * offset, 0)
+	else:
+		print("Failed to load scene: " + scene_path)
 	
 func update_held_item_display() -> void:
 	# Hide the held item sprite by default
