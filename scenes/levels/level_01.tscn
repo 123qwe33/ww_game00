@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=4 uid="uid://cam6hf1neqsgp"]
+[gd_scene load_steps=14 format=4 uid="uid://cam6hf1neqsgp"]
 
 [ext_resource type="Texture2D" uid="uid://bl07lth33wqug" path="res://assets/environment/level_01/background.png" id="1_2djvx"]
 [ext_resource type="PackedScene" uid="uid://c7ff4v7yrgxf0" path="res://scenes/player/player.tscn" id="1_m802k"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://b4slcsd74pbsi" path="res://scenes/components/tree_00.tscn" id="9_r72dd"]
 [ext_resource type="PackedScene" uid="uid://c075dhslf0i1h" path="res://scenes/components/nut.tscn" id="10_jmes4"]
 [ext_resource type="PackedScene" uid="uid://de0rquhbjtq8y" path="res://scenes/components/tree_01.tscn" id="11_ijn0p"]
+[ext_resource type="PackedScene" uid="uid://41w15m4pp4aq" path="res://scenes/components/shears.tscn" id="11_tyxjt"]
 
 [node name="Level01" type="Node2D"]
 
@@ -222,6 +223,9 @@ position = Vector2(1604, -1)
 [node name="Nut" parent="GameplayLayer" instance=ExtResource("10_jmes4")]
 position = Vector2(3764, -448)
 
+[node name="Shears" parent="GameplayLayer" instance=ExtResource("11_tyxjt")]
+position = Vector2(1162, 118)
+
 [node name="Camera2D" type="Camera2D" parent="."]
 script = ExtResource("2_i2aat")
 target_node_path = NodePath("../GameplayLayer/Player")
@@ -232,5 +236,3 @@ position = Vector2(1037, 4)
 [node name="tree01" parent="." instance=ExtResource("11_ijn0p")]
 z_index = -1
 position = Vector2(2411, -193)
-
-[connection signal="picked_up" from="GameplayLayer/Nut" to="GameplayLayer/Player" method="_on_pickup_object_picked_up"]
