@@ -45,6 +45,10 @@ func _physics_process(delta):
 	# Handle dropping items
 	if Input.is_action_just_pressed("drop_item") and not current_held_item.is_empty():
 		drop_item(current_held_item)
+		
+	# Handle rotating through inventory items
+	if Input.is_action_just_pressed("rotate_held_item"):
+		rotate_held_item()
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -217,6 +221,36 @@ func update_held_item_display() -> void:
 		_:
 			# Generic or unknown item, don't show anything
 			pass
+
+func rotate_held_item() -> void:
+	"""Cycles through available items in the inventory"""
+	# Skip if inventory is empty
+	if inventory.size() == 0:
+		return
+		
+	# Skip if inventory only has one item
+	if inventory.size() == 1:
+		# Make sure the one item is selected
+		current_held_item = inventory.keys()[0]
+		update_held_item_display()
+		return
+		
+	# Get all item keys from inventory
+	var item_keys = inventory.keys()
+	
+	# Find the index of the current held item
+	var current_index = -1
+	if not current_held_item.is_empty():
+		current_index = item_keys.find(current_held_item)
+	
+	# Calculate the next index (wrapping around if needed)
+	var next_index = (current_index + 1) % item_keys.size()
+	
+	# Set the new current held item
+	current_held_item = item_keys[next_index]
+	update_held_item_display()
+	
+	print("Switched to: " + current_held_item + " (Total: " + str(inventory[current_held_item]) + ")")
 
 func get_player_inventory() -> Dictionary:
 	"""Returns a copy of the player's current inventory"""
