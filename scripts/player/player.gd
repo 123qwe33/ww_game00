@@ -192,6 +192,10 @@ func update_held_item_display() -> void:
 			held_item_sprite.texture = load("res://assets/sprites/statics/nut.png")
 			held_item_sprite.visible = true
 			held_item_sprite.scale = Vector2(2, 2)  # Smaller than the pickup
+		"shears":
+			held_item_sprite.texture = load("res://assets/sprites/statics/shears.png")
+			held_item_sprite.visible = true
+			held_item_sprite.scale = Vector2(2, 2)  # Smaller than the pickup
 		# Add more items here as needed
 		_:
 			# Generic or unknown item, don't show anything
