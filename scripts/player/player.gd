@@ -167,6 +167,8 @@ func spawn_dropped_item(item_id: String) -> void:
 	var item_scene = load(scene_path)
 	if item_scene:
 		var item_instance = item_scene.instantiate()
+		# Set this player as the dropper to prevent immediate re-pickup
+		item_instance.dropped_by = self
 		# Add the item to the scene
 		get_tree().current_scene.add_child(item_instance)
 		# Position it slightly in front of the player
