@@ -254,10 +254,11 @@ func spawn_dropped_item(item_id: String) -> void:
 		item_instance.dropped_by = self
 		# Add the item to the scene
 		get_tree().current_scene.add_child(item_instance)
-		# Position it slightly in front of the squirrel
-		var offset = 30.0  # Distance in front of squirrel (smaller than player)
+		# Position it slightly in front of the squirrel, near the ground
+		var horizontal_offset = 30.0  # Distance in front of squirrel (smaller than player)
+		var vertical_offset = 20.0  # Lower position, near feet level (smaller than player)
 		var direction_factor = 1 if sprite.flip_h else -1  # Check which way squirrel is facing (flipped from player due to different sprite orientation)
-		item_instance.global_position = global_position + Vector2(direction_factor * offset, 0)
+		item_instance.global_position = global_position + Vector2(direction_factor * horizontal_offset, vertical_offset)
 	else:
 		print("Failed to load scene: " + scene_path)
 	

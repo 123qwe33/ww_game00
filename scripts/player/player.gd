@@ -192,10 +192,11 @@ func spawn_dropped_item(item_id: String) -> void:
 		item_instance.dropped_by = self
 		# Add the item to the scene
 		get_tree().current_scene.add_child(item_instance)
-		# Position it slightly in front of the player
-		var offset = 50.0  # Distance in front of player
+		# Position it slightly in front of the player, near the feet
+		var horizontal_offset = 50.0  # Distance in front of player
+		var vertical_offset = 30.0  # Lower position, near feet level
 		var direction_factor = -1 if sprite.flip_h else 1  # Check which way player is facing
-		item_instance.global_position = global_position + Vector2(direction_factor * offset, 0)
+		item_instance.global_position = global_position + Vector2(direction_factor * horizontal_offset, vertical_offset)
 	else:
 		print("Failed to load scene: " + scene_path)
 
