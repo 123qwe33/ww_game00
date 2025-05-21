@@ -20,10 +20,6 @@ config/icon="res://icon.png"
 PauseMenu="*res://scenes/ui/pause_menu.tscn"
 GameManager="*res://scripts/autoloads/game_manager.gd"
 
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/godot_midi/plugin.cfg")
-
 [gui]
 
 theme/custom="uid://epd3h3ptpsir"
