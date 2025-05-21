@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://sx2vu5toldhl"]
+[gd_scene load_steps=5 format=3 uid="uid://sx2vu5toldhl"]
 
 [ext_resource type="Script" uid="uid://bxenqt08r8gvw" path="res://scripts/ui/main_menu.gd" id="1_sl1te"]
 [ext_resource type="Theme" uid="uid://epd3h3ptpsir" path="res://assets/theme.tres" id="2_fe2o3"]
+[ext_resource type="Script" uid="uid://c4jg8mrc1t662" path="res://addons/midi/MidiPlayer.gd" id="3_1g8jr"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_87aya"]
 line_spacing = -22.0
@@ -72,6 +73,16 @@ layout_mode = 2
 theme = ExtResource("2_fe2o3")
 theme_override_font_sizes/font_size = 37
 text = "Quit to Desktop"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="MidiPlayer" type="Node" parent="AudioStreamPlayer"]
+script = ExtResource("3_1g8jr")
+file = "uid://d4i46ieom5kro"
+playing = true
+loop = true
+soundfont = "res://assets/audio/fonts/Flute (Beach's Backyard).sf2"
+metadata/_custom_type_script = "uid://c4jg8mrc1t662"
 
 [connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/Button" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/QuitToDesktopButton" to="." method="_on_quit_to_desktop_button_pressed"]
