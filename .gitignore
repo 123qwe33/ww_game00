@@ -71,4 +71,5 @@ assets/
 generations/
 addons/
 resources/
+.emigo_repomap/
 .aider*
