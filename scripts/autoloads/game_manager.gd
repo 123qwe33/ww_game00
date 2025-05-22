@@ -5,7 +5,6 @@ enum DeathCause {
 	FALL,
 	ENEMY,
 	SPIKES,
-	WATER,
 	CUSTOM
 }
 
