@@ -154,6 +154,8 @@ func update_sprite_direction():
 		ledge_detector.target_position = Vector2(0, 40)
 		# Position held item to the right of squirrel
 		$HeldItem.position.x = abs($HeldItem.position.x)
+		# Flip held item sprite to match squirrel direction
+		held_item_sprite.flip_h = false
 	elif direction < 0: # Moving Left
 		sprite.flip_h = false
 		# Position raycast to left side
@@ -161,6 +163,8 @@ func update_sprite_direction():
 		ledge_detector.target_position = Vector2(0, 40)
 		# Position held item to the left of squirrel
 		$HeldItem.position.x = -abs($HeldItem.position.x)
+		# Make sure held item sprite is not flipped when facing left
+		held_item_sprite.flip_h = true
 		
 func change_direction_with_cooldown():
 	direction *= -1 # Reverse direction

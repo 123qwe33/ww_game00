@@ -59,10 +59,14 @@ func _physics_process(delta):
 		sprite.flip_h = false # Facing right (assuming default sprite faces right)
 		# Position held item to the right of player
 		$HeldItem.position.x = abs($HeldItem.position.x)
+		# Make sure held item sprite is not flipped when facing right
+		held_item_sprite.flip_h = false
 	elif direction < 0:
 		sprite.flip_h = true  # Facing left
 		# Position held item to the left of player
 		$HeldItem.position.x = -abs($HeldItem.position.x)
+		# Flip held item sprite when facing left
+		held_item_sprite.flip_h = true
 		# Note: If direction is 0, the sprite keeps its last orientation.
 
 	# Set velocity based on direction
