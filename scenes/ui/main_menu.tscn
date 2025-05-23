@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bxenqt08r8gvw" path="res://scripts/ui/main_menu.gd" id="1_sl1te"]
 [ext_resource type="Theme" uid="uid://epd3h3ptpsir" path="res://assets/theme.tres" id="2_fe2o3"]
 [ext_resource type="Script" uid="uid://c4jg8mrc1t662" path="res://addons/midi/MidiPlayer.gd" id="3_1g8jr"]
-[ext_resource type="AudioStream" uid="uid://v02edxbkaiui" path="res://assets/audio/sfx/positive00.wav" id="4_m1kxf"]
+[ext_resource type="AudioStream" uid="uid://v02edxbkaiui" path="res://assets/audio/sfx/ui/positive00.wav" id="4_m1kxf"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_87aya"]
 line_spacing = -22.0
