@@ -30,6 +30,10 @@ func _physics_process(delta):
 	# Check for death by falling
 	check_fall_death()
 	
+	# Check if input is blocked by the pause menu
+	var pause_menu = get_node_or_null("/root/PauseMenu")
+	var input_blocked = pause_menu and pause_menu.block_input_timer > 0
+	
 	# Track air time and handle gravity
 	if not is_on_floor():
 		velocity.y += gravity * delta
@@ -38,7 +42,11 @@ func _physics_process(delta):
 		air_time = 0.0
 
 	# Handle Jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+	if Input.is_action_just_pressed("ui_accept"):
+		if input_blocked:
+			print("Jump blocked - just unpaused!")
+			
+	if Input.is_action_just_pressed("ui_accept") and is_on_floor() and not input_blocked:
 		velocity.y = JUMP_VELOCITY
 		air_time = AIR_THRESHOLD  # Immediately consider this a real jump
 		

@@ -5,9 +5,11 @@ extends Control
 
 var selected_index = 0 # This will track the currently selected button
 var buttons = [] # This will hold references to buttons for easy access
+var block_input_timer = 0.0 # Timer to block input after unpausing
 
 # Path to your main menu scene
 const MAIN_MENU_PATH = "res://scenes/ui/main_menu.tscn"
+const INPUT_BLOCK_TIME = 0.5 # Block input for half a second after unpausing
 
 func _ready():
 	# Hide the menu initially (should also be set in the scene file)
@@ -22,6 +24,13 @@ func _ready():
 
 	if buttons.size() > 0:
 		buttons[0].grab_focus()
+		
+# Update the input block timer
+func _process(delta):
+	if block_input_timer > 0:
+		block_input_timer -= delta
+		if block_input_timer <= 0:
+			block_input_timer = 0
 
 # Called automatically by the engine for input not handled elsewhere
 func _unhandled_input(event):
@@ -52,6 +61,8 @@ func toggle_pause():
 
 func _on_resume_button_pressed():
 	# Simply unpause and hide the menu
+	block_input_timer = INPUT_BLOCK_TIME # Start the input blocking timer
+	print("Unpausing game - blocking input for " + str(INPUT_BLOCK_TIME) + " seconds")
 	toggle_pause()
 
 func _on_quit_to_menu_button_pressed():
