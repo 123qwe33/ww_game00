@@ -88,7 +88,9 @@ metadata/_custom_type_script = "uid://c4jg8mrc1t662"
 [node name="NewGameSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_m1kxf")
 
+[connection signal="focus_entered" from="MarginContainer/CenterContainer/VBoxContainer/StartButton" to="." method="_on_button_focus"]
 [connection signal="mouse_entered" from="MarginContainer/CenterContainer/VBoxContainer/StartButton" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="focus_entered" from="MarginContainer/CenterContainer/VBoxContainer/QuitToDesktopButton" to="." method="_on_button_focus"]
 [connection signal="mouse_entered" from="MarginContainer/CenterContainer/VBoxContainer/QuitToDesktopButton" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/QuitToDesktopButton" to="." method="_on_quit_to_desktop_button_pressed"]

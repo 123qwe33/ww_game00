@@ -34,6 +34,9 @@ func _on_quit_to_desktop_button_pressed():
 func _on_button_mouse_entered():
 		SoundManager.play_hover_sound()
 
+func _on_button_focus():
+		SoundManager.play_hover_sound()  # Play hover sound when button is focused
+
 func _input(event):
 	if event.is_action_pressed("ui_down"):
 		selected_index = (selected_index + 1) % buttons.size() # Move down in the button list
