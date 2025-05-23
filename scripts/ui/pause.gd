@@ -20,6 +20,9 @@ func _ready():
 		if child is Button:
 			buttons.append(child)
 
+	if buttons.size() > 0:
+		buttons[0].grab_focus()
+
 # Called automatically by the engine for input not handled elsewhere
 func _unhandled_input(event):
 	# Get the currently active scene's root node
@@ -72,17 +75,27 @@ func _on_button_focus():
 		SoundManager.play_hover_sound()  # Play hover sound when button is focused
 
 func _input(event):
-	if get_tree().paused == false:
+	if not get_tree().paused:
 		return # Ignore input if the game is not paused
-	
+
+	# Get the currently focused button
+	var focused = get_viewport().gui_get_focus_owner()
+	if focused == null:
+		return
+
 	if event.is_action_pressed("ui_down"):
-		selected_index = (selected_index + 1) % buttons.size() # Move down in the button list
-		update_button_selection()
+		var neighbor_path = focused.focus_neighbor_bottom
+		var neighbor = focused.get_node_or_null(neighbor_path)
+		if neighbor:
+				neighbor.grab_focus()
 	elif event.is_action_pressed("ui_up"):
-		selected_index = (selected_index - 1 + buttons.size()) % buttons.size() # Move up in the button list
-		update_button_selection()
-	elif event.is_action_pressed("ui_accept"): # Usually Enter or Space
-		buttons[selected_index].emit_signal("pressed") # Trigger the pressed signal of the selected button
+		var neighbor_path = focused.focus_neighbor_top
+		var neighbor = focused.get_node_or_null(neighbor_path)
+		if neighbor:
+				neighbor.grab_focus()
+	elif event.is_action_pressed("ui_accept"):
+		focused.emit_signal("pressed")
+
 
 func update_button_selection():
 	for i in range(buttons.size()):

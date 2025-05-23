@@ -58,18 +58,24 @@ theme_override_constants/separation = 20
 
 [node name="ResumeButton" type="Button" parent="CanvasLayer/MarginContainer/CenterContainer/VBoxContainer/ButtonContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../QuitToMenuButton")
+focus_neighbor_bottom = NodePath("../QuitToDesktopButton")
 theme = ExtResource("2_0lmf7")
 theme_override_font_sizes/font_size = 30
 text = "Resume Game"
 
 [node name="QuitToMenuButton" type="Button" parent="CanvasLayer/MarginContainer/CenterContainer/VBoxContainer/ButtonContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../QuitToDesktopButton")
+focus_neighbor_bottom = NodePath("../ResumeButton")
 theme = ExtResource("2_0lmf7")
 theme_override_font_sizes/font_size = 30
 text = "Quit to Main Menu"
 
 [node name="QuitToDesktopButton" type="Button" parent="CanvasLayer/MarginContainer/CenterContainer/VBoxContainer/ButtonContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../ResumeButton")
+focus_neighbor_bottom = NodePath("../QuitToMenuButton")
 theme = ExtResource("2_0lmf7")
 theme_override_font_sizes/font_size = 30
 text = "Quit to Desktop"
