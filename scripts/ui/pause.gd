@@ -1,6 +1,10 @@
 extends Control
 
-@onready var canvas_layer = $CanvasLayer # Add this line
+@onready var canvas_layer = $CanvasLayer
+@onready var button_container = get_node("/root/PauseMenu/CanvasLayer/MarginContainer/CenterContainer/VBoxContainer/ButtonContainer")
+
+var selected_index = 0 # This will track the currently selected button
+var buttons = [] # This will hold references to buttons for easy access
 
 # Path to your main menu scene
 const MAIN_MENU_PATH = "res://scenes/ui/main_menu.tscn"
@@ -10,6 +14,11 @@ func _ready():
 	canvas_layer.hide()
 	# Ensure this node processes input even when the scene tree is paused
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	
+	# Add buttons to the list for navigation
+	for child in button_container.get_children():
+		if child is Button:
+			buttons.append(child)
 
 # Called automatically by the engine for input not handled elsewhere
 func _unhandled_input(event):
@@ -33,15 +42,14 @@ func toggle_pause():
 	get_tree().paused = not is_paused
 	# Show/hide the pause menu accordingly
 	canvas_layer.visible = not is_paused
+	
+	# Set the initial button selection
+	selected_index = 0
+	update_button_selection()
 
 func _on_resume_button_pressed():
 	# Simply unpause and hide the menu
 	toggle_pause()
-
-func _on_options_button_pressed():
-	print("Options button pressed (implement options menu loading here)")
-	# You might load/show another UI scene for options
-	pass
 
 func _on_quit_to_menu_button_pressed():
 	# IMPORTANT: Unpause before changing scenes, otherwise the new scene might stay paused!
@@ -59,3 +67,25 @@ func _on_quit_to_desktop_button_pressed():
 
 func _on_button_mouse_entered():
 		SoundManager.play_hover_sound()
+
+func _on_button_focus():
+		SoundManager.play_hover_sound()  # Play hover sound when button is focused
+
+func _input(event):
+	if get_tree().paused == false:
+		return # Ignore input if the game is not paused
+	
+	if event.is_action_pressed("ui_down"):
+		selected_index = (selected_index + 1) % buttons.size() # Move down in the button list
+		update_button_selection()
+	elif event.is_action_pressed("ui_up"):
+		selected_index = (selected_index - 1 + buttons.size()) % buttons.size() # Move up in the button list
+		update_button_selection()
+	elif event.is_action_pressed("ui_accept"): # Usually Enter or Space
+		buttons[selected_index].emit_signal("pressed") # Trigger the pressed signal of the selected button
+
+func update_button_selection():
+	for i in range(buttons.size()):
+		# Update to button's focus state to indicate selection
+		if i == selected_index:
+			buttons[i].grab_focus()
