@@ -79,7 +79,7 @@ text = "Quit to Desktop"
 
 [node name="MidiPlayer" type="Node" parent="BackgroundMusic"]
 script = ExtResource("3_1g8jr")
-file = "uid://d4i46ieom5kro"
+file = "res://assets/audio/music/menu.mid"
 playing = true
 loop = true
 soundfont = "res://assets/audio/fonts/Flute (Beach's Backyard).sf2"
@@ -88,5 +88,7 @@ metadata/_custom_type_script = "uid://c4jg8mrc1t662"
 [node name="NewGameSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_m1kxf")
 
+[connection signal="mouse_entered" from="MarginContainer/CenterContainer/VBoxContainer/Button" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/Button" to="." method="_on_start_button_pressed"]
+[connection signal="mouse_entered" from="MarginContainer/CenterContainer/VBoxContainer/QuitToDesktopButton" to="." method="_on_button_mouse_entered"]
 [connection signal="pressed" from="MarginContainer/CenterContainer/VBoxContainer/QuitToDesktopButton" to="." method="_on_quit_to_desktop_button_pressed"]

@@ -56,3 +56,6 @@ func _on_quit_to_desktop_button_pressed():
 	# IMPORTANT: Unpause first (optional but good practice)
 	get_tree().paused = false
 	get_tree().quit()
+
+func _on_button_mouse_entered():
+		SoundManager.play_hover_sound()
