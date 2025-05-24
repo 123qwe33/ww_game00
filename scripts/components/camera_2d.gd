@@ -4,7 +4,7 @@ extends Camera2D
 @export var target_node_path: NodePath # Assign player node path in inspector
 @export var smooth_speed = 5.0
 @export var max_vertical_follow = 500.0 # Maximum vertical distance camera will follow player down
-
+@export var vertical_offset = -50.0 # Offset to keep player below the center
 var target: Node2D
 var initial_vertical_position = 0.0
 
@@ -27,7 +27,8 @@ func _process(delta):
 		if target_position.y > max_y_position:
 			target_position.y = max_y_position
 
-		# Smoothly interpolate camera's global position towards the limited target position
+		# Apply vertical offset to the target position
+		target_position.y += vertical_offset
 		global_position = global_position.lerp(Vector2(target_position.x, target_position.y), delta * smooth_speed)
 
 		# Optional: Set camera limits if your level has boundaries
