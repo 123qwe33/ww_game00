@@ -3,7 +3,7 @@ extends Camera2D
 
 @export var target_node_path: NodePath # Assign player node path in inspector
 @export var smooth_speed = 5.0
-@export var max_vertical_follow = 500.0 # Maximum vertical distance camera will follow player down
+@export var max_vertical_follow = 800.0 # Maximum vertical distance camera will follow player down
 @export var vertical_offset = -50.0 # Offset to keep player below the center
 var target: Node2D
 var initial_vertical_position = 0.0
