@@ -10,5 +10,5 @@ func display(title):
 	TitleCardLabel.text = title
 	TitleCardCanvas.show()
 	# Hide it after a short delay
-	await get_tree().create_timer(2.0).timeout
+	await get_tree().create_timer(3.0).timeout
 	TitleCardCanvas.hide()
