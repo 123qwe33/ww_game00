@@ -10,3 +10,8 @@ func _on_body_entered(body: Node) -> void:
 		if target:
 			target.call("start_moving")
 			body.input_enabled = false
+			SoundManager.change_track('ww_theme')
+		else:
+			print("Error: object_to_move node not found.")
+	elif body.name != "Player":
+		print("Triggered by non-player entity: ", body.name)
