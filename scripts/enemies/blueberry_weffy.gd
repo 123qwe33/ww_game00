@@ -3,6 +3,7 @@ extends Node2D
 @export var speed := 100.0
 @export var move_distance := -800.0
 var moving := false
+var done := false
 var start_position: Vector2
 var target_position: Vector2
 
@@ -19,3 +20,6 @@ func _process(delta: float) -> void:
 		if position.distance_to(target_position) < 1.0:
 			position = target_position
 			moving = false
+			done = true
+	elif done:
+		GameManager.end_game()

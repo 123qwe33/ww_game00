@@ -204,7 +204,7 @@ object_to_move = NodePath("../BlueberryWeffy")
 shape = SubResource("RectangleShape2D_cywot")
 
 [node name="BlueberryWeffy" parent="GameplayLayer" instance=ExtResource("17_e6lid")]
-position = Vector2(6387, 219)
+position = Vector2(6387, 233)
 script = ExtResource("11_cywot")
 
 [node name="TileMap" type="Node2D" parent="GameplayLayer"]

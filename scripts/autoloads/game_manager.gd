@@ -16,12 +16,15 @@ const MAIN_MENU_SCENE = "res://scenes/ui/main_menu.tscn"
 # Signal for when player dies - carry death cause for potential future use
 signal player_died(cause: DeathCause)
 
+func end_game():
+	TitleCard.display("To Be Continued...", 999)
+
 func start_game():
 	# Change the current scene to the first level
 	var error = get_tree().change_scene_to_file("res://scenes/levels/level_01.tscn")
 	if error != OK:
 		print("Error changing scene: ", error)
-	SoundManager.change_track("quiet_forest")
+	SoundManager.play_music("quiet_forest")
 	TitleCard.display("Chapter 1: Journey to Moomaw")
 
 # Handles player death with any cause
