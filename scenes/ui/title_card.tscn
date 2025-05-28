@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://bolmgkg32cy7w"]
+[gd_scene load_steps=3 format=3 uid="uid://bolmgkg32cy7w"]
+
+[ext_resource type="Script" uid="uid://d3gofpgueixcr" path="res://scripts/ui/title_card.gd" id="1_a10dp"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_87aya"]
 line_spacing = -22.0
@@ -12,6 +14,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_a10dp")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

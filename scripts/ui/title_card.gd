@@ -1,0 +1,13 @@
+extends Control
+
+@onready var TitleCardCanvas = TitleCard.get_child(0)
+# @onready var TitleCardLabel = TitleCard.find_child("", Label, true)
+
+func _ready():
+	TitleCardCanvas.hide()
+
+func display(title):
+	TitleCardCanvas.show()
+	# Hide it after a short delay
+	await get_tree().create_timer(2.0).timeout
+	TitleCardCanvas.hide()

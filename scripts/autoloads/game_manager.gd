@@ -12,24 +12,9 @@ enum DeathCause {
 const MAIN_MENU_SCENE = "res://scenes/ui/main_menu.tscn"
 
 @onready var TitleCard = get_node_or_null("/root/TitleCard")
-@onready var TitleCardCanvas = TitleCard.get_child(0)
 
 # Signal for when player dies - carry death cause for potential future use
 signal player_died(cause: DeathCause)
-
-func _ready():
-	TitleCardCanvas.hide()
-
-func show_title_card(text):
-	# Show the title card if it exists
-	if TitleCard:
-		# TitleCard.set_text(text)
-		TitleCardCanvas.show()
-		# Hide it after a short delay
-		await get_tree().create_timer(2.0).timeout
-		TitleCardCanvas.hide()
-	else:
-		print("Warning: TitleCard node not found in the scene tree.")
 
 func start_game():
 	# Change the current scene to the first level
@@ -37,7 +22,7 @@ func start_game():
 	if error != OK:
 		print("Error changing scene: ", error)
 	SoundManager.change_track("quiet_forest")
-	show_title_card("Chapter 1: Journey to Moomaw")
+	TitleCard.display("Chapter 1: Journey to Moomaw")
 
 # Handles player death with any cause
 func kill_player(cause: DeathCause = DeathCause.CUSTOM) -> void:
