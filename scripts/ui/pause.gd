@@ -2,6 +2,7 @@ extends Control
 
 @onready var canvas_layer = $CanvasLayer
 @onready var button_container = get_node("/root/PauseMenu/CanvasLayer/MarginContainer/CenterContainer/VBoxContainer/ButtonContainer")
+@onready var TitleCardCanvas = get_node_or_null("/root/TitleCard/CanvasLayer")
 
 var selected_index = 0 # This will track the currently selected button
 var buttons = [] # This will hold references to buttons for easy access
@@ -42,6 +43,7 @@ func _unhandled_input(event):
 		return
 	# Check if the 'pause' action was just pressed
 	if event.is_action_pressed("pause"):
+		TitleCardCanvas.hide()
 		# Toggle pause state and menu visibility
 		toggle_pause()
 		# Mark the event as handled so other nodes don't process it
