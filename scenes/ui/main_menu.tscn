@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://sx2vu5toldhl"]
+[gd_scene load_steps=5 format=3 uid="uid://sx2vu5toldhl"]
 
 [ext_resource type="Script" uid="uid://bxenqt08r8gvw" path="res://scripts/ui/main_menu.gd" id="1_sl1te"]
 [ext_resource type="Theme" uid="uid://epd3h3ptpsir" path="res://assets/theme.tres" id="2_fe2o3"]
-[ext_resource type="Script" uid="uid://c4jg8mrc1t662" path="res://addons/midi/MidiPlayer.gd" id="3_1g8jr"]
 [ext_resource type="AudioStream" uid="uid://v02edxbkaiui" path="res://assets/audio/sfx/ui/positive00.wav" id="4_m1kxf"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_87aya"]
@@ -74,16 +73,6 @@ layout_mode = 2
 theme = ExtResource("2_fe2o3")
 theme_override_font_sizes/font_size = 37
 text = "Quit to Desktop"
-
-[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
-
-[node name="MidiPlayer" type="Node" parent="BackgroundMusic"]
-script = ExtResource("3_1g8jr")
-file = "res://assets/audio/music/menu.mid"
-playing = true
-loop = true
-soundfont = "res://assets/audio/fonts/Flute (Beach's Backyard).sf2"
-metadata/_custom_type_script = "uid://c4jg8mrc1t662"
 
 [node name="NewGameSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_m1kxf")

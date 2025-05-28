@@ -8,6 +8,7 @@ var selected_index = 0 # This will track the currently selected button
 var buttons = [] # This will hold references to buttons for easy access
 
 func _ready():
+	SoundManager.play_music('menu', 'flute')
 	# Add buttons to the list for navigation
 	for child in button_container.get_children():
 		if child is Button:
@@ -27,6 +28,7 @@ func _on_start_button_pressed() -> void:
 		var error = get_tree().change_scene_to_file("res://scenes/levels/level_01.tscn")
 		if error != OK:
 				print("Error changing scene: ", error)
+		SoundManager.change_track("quiet_forest")
 
 func _on_quit_to_desktop_button_pressed():
 		get_tree().quit()
