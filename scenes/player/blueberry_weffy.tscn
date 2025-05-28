@@ -5,5 +5,5 @@
 [node name="BlueberryWeffy" type="Node2D"]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(3.92, 3.92)
+scale = Vector2(-3.92, 3.92)
 texture = ExtResource("1_f05q3")
