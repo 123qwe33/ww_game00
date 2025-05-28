@@ -26,7 +26,10 @@ var current_held_item: String = ""  # ID of the currently held item
 const MAX_INVENTORY_SIZE = 2  # Maximum number of different items player can carry
 const MAX_STACK_SIZE = 99  # Maximum number of the same item player can carry
 
+var input_enabled := true
+
 func _physics_process(delta):
+	
 	# Check for death by falling
 	check_fall_death()
 	
@@ -46,16 +49,16 @@ func _physics_process(delta):
 		if input_blocked:
 			print("Jump blocked - just unpaused!")
 			
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor() and not input_blocked:
+	if Input.is_action_just_pressed("ui_accept") and is_on_floor() and not input_blocked and input_enabled:
 		velocity.y = JUMP_VELOCITY
 		air_time = AIR_THRESHOLD  # Immediately consider this a real jump
 		
 	# Handle dropping items
-	if Input.is_action_just_pressed("drop_item") and not current_held_item.is_empty():
+	if Input.is_action_just_pressed("drop_item") and not current_held_item.is_empty() and input_enabled:
 		drop_item(current_held_item)
 		
 	# Handle rotating through inventory items
-	if Input.is_action_just_pressed("rotate_held_item"):
+	if Input.is_action_just_pressed("rotate_held_item") and input_enabled:
 		rotate_held_item()
 
 	# Get the input direction and handle the movement/deceleration.
@@ -63,13 +66,13 @@ func _physics_process(delta):
 	var direction = Input.get_axis("ui_left", "ui_right")
 
 	# Flip the sprite based on direction
-	if direction > 0:
+	if direction > 0 and input_enabled:
 		sprite.flip_h = false # Facing right (assuming default sprite faces right)
 		# Position held item to the right of player
 		$HeldItem.position.x = abs($HeldItem.position.x)
 		# Make sure held item sprite is not flipped when facing right
 		held_item_sprite.flip_h = false
-	elif direction < 0:
+	elif direction < 0 and input_enabled:
 		sprite.flip_h = true  # Facing left
 		# Position held item to the left of player
 		$HeldItem.position.x = -abs($HeldItem.position.x)
@@ -78,7 +81,7 @@ func _physics_process(delta):
 		# Note: If direction is 0, the sprite keeps its last orientation.
 
 	# Set velocity based on direction
-	if direction:
+	if direction and input_enabled:
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED) # Simple friction/stop
@@ -87,7 +90,7 @@ func _physics_process(delta):
 	if not is_on_floor() and air_time >= AIR_THRESHOLD:
 		# Only play jump animation if we've been in the air longer than the threshold
 		sprite.play("jump")
-	elif direction:
+	elif direction and input_enabled:
 		sprite.play("walk")
 	else:
 		sprite.play("idle")

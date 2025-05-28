@@ -9,3 +9,4 @@ func _on_body_entered(body: Node) -> void:
 		var target = get_node(object_to_move)
 		if target:
 			target.call("start_moving")
+			body.input_enabled = false
