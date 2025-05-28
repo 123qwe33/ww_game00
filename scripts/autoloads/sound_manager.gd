@@ -7,17 +7,27 @@ var hover_sounds = [
 @onready var menu_player = AudioStreamPlayer.new()
 @onready var music_player = AudioStreamPlayer.new()  # AudioStreamPlayer for MIDI
 @onready var midi_player = MidiPlayer.new()  # MidiPlayer instance
+# Lists of music tracks and associated scene names
+var music_tracks = {
+	"quiet_forest": "res://assets/audio/music/Quiet_Forest.mid"
+}
+var soundfonts = {
+	"flute": "res://assets/audio/fonts/Flute (Beach's Backyard).sf2"
+}
 
 func _ready():
 	add_child(music_player)  # Add the AudioStreamPlayer as a child
 	music_player.add_child(midi_player)  # Add MidiPlayer as a child of AudioStreamPlayer
+	add_child(menu_player) # Add the menu effect player to the scene
 
 	# Load MIDI file and soundfont
-	midi_player.file = "res://assets/audio/music/Quiet_Forest.mid"  # Set your MIDI file path
-	midi_player.soundfont = "res://assets/audio/fonts/Flute (Beach's Backyard).sf2"  # Set your SoundFont path
-	midi_player.loop = true  # Set to loop
-	midi_player.play()  # Start playback
-	add_child(menu_player)
+	play_music(music_tracks["quiet_forest"], soundfonts["flute"])
+
+func play_music(track, font):
+	midi_player.file = track
+	midi_player.soundfont = font
+	midi_player.loop = true
+	midi_player.play()
 
 func play_hover_sound():
 	if (menu_player):
