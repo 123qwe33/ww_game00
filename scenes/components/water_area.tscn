@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://5wrfbynl6rl4"]
+
+[ext_resource type="Shader" uid="uid://djjnohg6p88cy" path="res://shaders/water_area.gdshader" id="1_yo2wd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ec7sb"]
+shader = ExtResource("1_yo2wd")
+shader_parameter/time_scale = 1.0
+shader_parameter/distortion_strength = 0.01
+shader_parameter/wave_freq = 30.0
+shader_parameter/tint = Vector4(0.2, 0.4, 0.8, 0.4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_55fcs"]
+size = Vector2(40, 40)
+
+[node name="WaterArea" type="Node2D"]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_ec7sb")
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+color = Color(0.3471, 0.528067, 0.89, 0.596078)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_55fcs")
