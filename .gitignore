@@ -71,5 +71,7 @@ assets/
 generations/
 addons/
 resources/
+builds/
+.godot/exported/
 .emigo_repomap/
 .aider*
