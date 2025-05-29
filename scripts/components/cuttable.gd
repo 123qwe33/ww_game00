@@ -44,6 +44,8 @@ func cut_self():
 		var particles = cut_particles_scene.instantiate()
 		get_parent().add_child(particles)
 		particles.global_position = global_position
+		await get_tree().create_timer(1.0).timeout
+		particles.queue_free()  # Clean up particles after a short delay
 		
 	# Make the vine disappear after waiting for sound to finish
 	await get_tree().create_timer(0.5).timeout
