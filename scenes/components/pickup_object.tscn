@@ -6,6 +6,9 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_g3gqx"]
 shader = ExtResource("2_xsd0h")
+shader_parameter/speed = 2.0
+shader_parameter/brightness = 2.0
+shader_parameter/frequency = 0.5
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_w52ge"]
 radius = 32.1403
