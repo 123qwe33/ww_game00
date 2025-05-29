@@ -117,10 +117,10 @@ func _physics_process(delta):
 # Check if player has fallen below the death threshold
 func check_fall_death() -> void:
 	if global_position.y > DEATH_Y_THRESHOLD:
-		die(GameManager.DeathCause.FALL)
+		die('FALL')
 
 # Handle player death with optional cause parameter
-func die(cause: GameManager.DeathCause = GameManager.DeathCause.CUSTOM) -> void:
+func die(cause):
 	# Disable input and physics processing
 	set_physics_process(false)
 	set_process_input(false)
