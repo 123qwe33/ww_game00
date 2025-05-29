@@ -4,8 +4,6 @@ extends Node2D
 @export var remove_on_pickup: bool = true
 # Optional item ID or type to identify what was picked up
 @export var item_id: String = "generic_item"
-# Optional pickup sound
-@export var pickup_sound: AudioStream
 # Delay before the dropper can pick up this item again
 @export var dropper_cooldown: float = 0.75  # Three-quarter second delay
 
@@ -31,10 +29,7 @@ func _on_Area2D_body_entered(body):
 		# Call the collect_item method on the body
 		body.collect_item(item_id)
 		
-		# Play pickup sound if available
-		if pickup_sound != null and has_node("AudioStreamPlayer"):
-			$AudioStreamPlayer.stream = pickup_sound
-			$AudioStreamPlayer.play()
+		SoundManager.play_fx_sound(item_id)
 		
 		# Remove the object if configured to do so
 		if remove_on_pickup:

@@ -18,7 +18,8 @@ var music_tracks = {
 var fx_sounds = {
 	"land": preload("res://assets/audio/sfx/movement/jump_land_grass.mp3"),
 	"fall": preload("res://assets/audio/sfx/events/fall.wav"),
-	"acorn": preload("res://assets/audio/sfx/objects/bite-small2.wav"),
+	"nut": preload("res://assets/audio/sfx/objects/bite-small2.wav"),
+	"shears": preload("res://assets/audio/sfx/objects/sword-unsheathe4.wav")
 }
 var soundfonts = {
 	"flute": "res://assets/audio/fonts/Flute (Beach's Backyard).sf2"
