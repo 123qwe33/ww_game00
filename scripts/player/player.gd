@@ -55,6 +55,7 @@ func _physics_process(delta):
 		
 	# Handle dropping items
 	if Input.is_action_just_pressed("drop_item") and not current_held_item.is_empty() and input_enabled:
+		SoundManager.play_fx_sound(current_held_item)
 		drop_item(current_held_item)
 		
 	# Handle rotating through inventory items
