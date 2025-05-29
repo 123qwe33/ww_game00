@@ -37,7 +37,6 @@ func cut_self():
 	
 	# Play cut sound if available
 	if cut_sound != null and has_node("AudioStreamPlayer"):
-		$AudioStreamPlayer.stream = cut_sound
 		$AudioStreamPlayer.play()
 	
 	# Spawn particles if available
@@ -46,7 +45,8 @@ func cut_self():
 		get_parent().add_child(particles)
 		particles.global_position = global_position
 		
-	# Make the vine disappear
+	# Make the vine disappear after waiting for sound to finish
+	await get_tree().create_timer(0.5).timeout
 	queue_free()
 
 func _ready():
@@ -54,3 +54,7 @@ func _ready():
 	# We'll need to add an Area2D node to detect collisions
 	if has_node("CutArea"):
 		$CutArea.body_entered.connect(_on_body_entered)
+
+	# Set the cut sound if provided
+	if cut_sound != null and has_node("AudioStreamPlayer"):
+		$AudioStreamPlayer.stream = cut_sound
