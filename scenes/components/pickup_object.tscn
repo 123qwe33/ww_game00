@@ -1,7 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://p7f7358eb2uo"]
+[gd_scene load_steps=6 format=3 uid="uid://p7f7358eb2uo"]
 
 [ext_resource type="Texture2D" uid="uid://jec47rnfljxo" path="res://icon.png" id="1_objyf"]
 [ext_resource type="Script" uid="uid://duidoal6phgcl" path="res://scripts/components/pickup_object.gd" id="1_w52ge"]
+[ext_resource type="Shader" uid="uid://c0vvp1aax26jc" path="res://shaders/pickup_object.gdshader" id="2_xsd0h"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g3gqx"]
+shader = ExtResource("2_xsd0h")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_w52ge"]
 radius = 32.1403
@@ -10,6 +14,7 @@ radius = 32.1403
 script = ExtResource("1_w52ge")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_g3gqx")
 texture = ExtResource("1_objyf")
 region_rect = Rect2(0, 27, 0, 0)
 
