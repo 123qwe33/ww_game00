@@ -11,7 +11,8 @@ var hover_sounds = [
 var music_tracks = {
 	"quiet_forest": "res://assets/audio/music/Quiet_Forest.mid",
 	"ww_theme": "res://assets/audio/music/georgia01.mid",
-	"menu": "res://assets/audio/music/menu.mid"
+	"menu": "res://assets/audio/music/menu.mid",
+	"phantom": "res://assets/audio/music/The-Phantom-Of-The-Opera.mid",
 }
 var soundfonts = {
 	"flute": "res://assets/audio/fonts/Flute (Beach's Backyard).sf2"
