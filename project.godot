@@ -23,6 +23,11 @@ SoundManager="*res://scripts/autoloads/sound_manager.gd"
 TitleCard="*res://scenes/ui/title_card.tscn"
 Prompt="*res://scenes/ui/prompt.tscn"
 
+[display]
+
+window/stretch/mode="viewport"
+window/stretch/aspect="keep_width"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/midi/plugin.cfg")
