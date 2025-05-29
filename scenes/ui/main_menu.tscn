@@ -64,12 +64,16 @@ horizontal_alignment = 1
 
 [node name="StartButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../QuitToDesktopButton")
+focus_neighbor_bottom = NodePath("../QuitToDesktopButton")
 theme = ExtResource("2_fe2o3")
 theme_override_font_sizes/font_size = 37
 text = "Start Game"
 
 [node name="QuitToDesktopButton" type="Button" parent="MarginContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
+focus_neighbor_top = NodePath("../StartButton")
+focus_neighbor_bottom = NodePath("../StartButton")
 theme = ExtResource("2_fe2o3")
 theme_override_font_sizes/font_size = 37
 text = "Quit to Desktop"
