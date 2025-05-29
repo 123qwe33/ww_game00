@@ -265,6 +265,9 @@ func rotate_held_item() -> void:
 	# Set the new current held item
 	current_held_item = item_keys[next_index]
 	update_held_item_display()
+
+	# Play sound for active item
+	SoundManager.play_fx_sound(current_held_item)
 	
 	print("Switched to: " + current_held_item + " (Total: " + str(inventory[current_held_item]) + ")")
 
