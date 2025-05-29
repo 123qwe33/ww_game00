@@ -24,7 +24,7 @@ func start_game():
 	var error = get_tree().change_scene_to_file("res://scenes/levels/level_01.tscn")
 	if error != OK:
 		print("Error changing scene: ", error)
-	SoundManager.play_music("quiet_forest")
+	SoundManager.play_music("quiet_forest", "flute", 0.88)
 	TitleCard.display("Chapter 1: Journey to Moomaw")
 
 # Handles player death with any cause

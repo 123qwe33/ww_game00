@@ -22,11 +22,12 @@ func _ready():
 	music_player.add_child(midi_player)  # Add MidiPlayer as a child of AudioStreamPlayer
 	add_child(menu_player) # Add the menu effect player to the scene
 
-func play_music(track, font = "flute"):
+func play_music(track, font = "flute", speed = 1.0):
 	midi_player.stop()  # Stop any currently playing MIDI
 	midi_player.file = music_tracks[track]
 	midi_player.soundfont = soundfonts[font]
 	midi_player.loop = true
+	midi_player.play_speed = speed  # Set the playback speed
 	midi_player.play()
 
 func play_hover_sound():
