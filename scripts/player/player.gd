@@ -26,6 +26,8 @@ var current_held_item: String = ""  # ID of the currently held item
 const MAX_INVENTORY_SIZE = 2  # Maximum number of different items player can carry
 const MAX_STACK_SIZE = 99  # Maximum number of the same item player can carry
 
+var do_item_prompt = true
+
 var input_enabled := true
 
 func _physics_process(delta):
@@ -151,7 +153,11 @@ func collect_item(item_id: String) -> void:
 	# Update the currently held item
 	current_held_item = item_id
 	update_held_item_display()
-	
+
+	# if first time picking something up, show pickup prompt
+	if do_item_prompt:
+		Prompt.display_prompt("Picked up " + item_id + ". Press ◯ to drop, or △ to change items.", 5)
+		do_item_prompt = false  # Only show this once
 	print("Player picked up " + item_id + " (Total: " + str(inventory[item_id]) + ")")
 
 func drop_item(item_id: String) -> void:
