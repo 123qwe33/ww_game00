@@ -4,6 +4,7 @@ extends Node
 const MAIN_MENU_SCENE = "res://scenes/ui/main_menu.tscn"
 
 @onready var TitleCard = get_node_or_null("/root/TitleCard")
+@onready var Prompt = get_node_or_null("/root/Prompt")
 
 # Signal for when player dies - carry death cause for potential future use
 signal player_died(cause)
@@ -18,6 +19,8 @@ func start_game():
 		print("Error changing scene: ", error)
 	SoundManager.play_music("quiet_forest", "flute", 0.88)
 	TitleCard.display("Chapter 1: Journey to Moomaw")
+	await get_tree().create_timer(3.5).timeout
+	Prompt.display_prompt("Use direction keys to move, and press X to jump.", 10)
 
 func play_death_sound(cause):
 	# Play a sound based on the cause of death
