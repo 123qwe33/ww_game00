@@ -39,3 +39,13 @@ func kill_player(cause):
 	
 	# Return to main menu
 	get_tree().change_scene_to_file(MAIN_MENU_SCENE)
+
+func next_level():
+	# Get current level number from scene name
+	var current_scene = get_tree().current_scene
+	var scene_name = current_scene.name # e.g., "level_01"
+	# Extract level number
+	var level_number = int(scene_name.get_slice("_", 1)) # Get the number after the underscore
+	var next_level_number = level_number + 1
+	var next_scene_path = "res://scenes/levels/level_%02d.tscn" % next_level_number
+	var error = get_tree().change_scene_to_file(next_scene_path)

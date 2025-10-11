@@ -22,4 +22,5 @@ func _process(delta: float) -> void:
 			moving = false
 			done = true
 	elif done:
-		GameManager.end_game()
+		await get_tree().create_timer(7).timeout
+		GameManager.next_level()
