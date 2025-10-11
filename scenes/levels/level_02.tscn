@@ -1,0 +1,229 @@
+[gd_scene load_steps=13 format=4 uid="uid://c4p3782e64rjw"]
+
+[ext_resource type="Texture2D" uid="uid://bl07lth33wqug" path="res://assets/environment/level_01/background.png" id="1_01hg1"]
+[ext_resource type="Texture2D" uid="uid://c78ybfhcqj8wm" path="res://assets/environment/level_01/sky.png" id="2_v5pqk"]
+[ext_resource type="Texture2D" uid="uid://cuorxp7tsrksj" path="res://assets/environment/level_01/ground.png" id="3_m2te4"]
+[ext_resource type="PackedScene" uid="uid://5wrfbynl6rl4" path="res://scenes/components/water_area.tscn" id="4_kxbgd"]
+[ext_resource type="Shader" uid="uid://djjnohg6p88cy" path="res://shaders/water_area.gdshader" id="5_lky54"]
+[ext_resource type="PackedScene" uid="uid://c7ff4v7yrgxf0" path="res://scenes/player/player.tscn" id="7_kx1rr"]
+[ext_resource type="PackedScene" uid="uid://qyluy8f7x30h" path="res://scenes/enemies/squirrel.tscn" id="8_gus8w"]
+[ext_resource type="TileSet" uid="uid://co81d1ev52we3" path="res://assets/tilesets/forest_tileset.tres" id="12_cu4fk"]
+[ext_resource type="PackedScene" uid="uid://b4slcsd74pbsi" path="res://scenes/components/tree_00.tscn" id="15_7873c"]
+[ext_resource type="PackedScene" uid="uid://de0rquhbjtq8y" path="res://scenes/components/tree_01.tscn" id="16_ymej5"]
+[ext_resource type="Script" uid="uid://dwmwlx4kdumig" path="res://scripts/components/camera_2d.gd" id="19_qfl0r"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_iu1m7"]
+shader = ExtResource("5_lky54")
+shader_parameter/time_scale = 1.0
+shader_parameter/distortion_strength = 0.01
+shader_parameter/wave_freq = 30.0
+shader_parameter/tint = Vector4(0.2, 0.4, 0.8, 0.4)
+
+[node name="Level01" type="Node2D"]
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="BackgroundLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+motion_scale = Vector2(0.5, 0.5)
+motion_mirroring = Vector2(707, 0)
+
+[node name="Mountains00" type="Sprite2D" parent="ParallaxBackground/BackgroundLayer"]
+texture_filter = 1
+texture_repeat = 3
+position = Vector2(-450, 70)
+scale = Vector2(7.68657, 7.68657)
+texture = ExtResource("1_01hg1")
+
+[node name="Mountains01" type="Sprite2D" parent="ParallaxBackground/BackgroundLayer"]
+texture_filter = 1
+texture_repeat = 3
+position = Vector2(964, 70)
+scale = Vector2(7.68657, 7.68657)
+texture = ExtResource("1_01hg1")
+
+[node name="Sky00" type="Node2D" parent="ParallaxBackground/BackgroundLayer"]
+
+[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/BackgroundLayer/Sky00"]
+position = Vector2(964, -202)
+rotation = -3.14159
+scale = Vector2(7.687, 7.687)
+texture = ExtResource("2_v5pqk")
+
+[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/BackgroundLayer/Sky00"]
+position = Vector2(-450, -202)
+rotation = 3.14159
+scale = Vector2(7.687, 7.687)
+texture = ExtResource("2_v5pqk")
+
+[node name="Sky01" type="Node2D" parent="ParallaxBackground/BackgroundLayer"]
+position = Vector2(0, -29)
+
+[node name="Sky02" type="Node2D" parent="ParallaxBackground/BackgroundLayer"]
+position = Vector2(0, -59)
+
+[node name="Ground00" type="Node2D" parent="ParallaxBackground/BackgroundLayer"]
+position = Vector2(0, 535)
+
+[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/BackgroundLayer/Ground00"]
+position = Vector2(964, -202)
+scale = Vector2(7.687, 7.687)
+texture = ExtResource("3_m2te4")
+
+[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/BackgroundLayer/Ground00"]
+position = Vector2(-450, -202)
+scale = Vector2(7.687, 7.687)
+texture = ExtResource("3_m2te4")
+
+[node name="Ground01" type="Node2D" parent="ParallaxBackground/BackgroundLayer"]
+position = Vector2(0, 549)
+
+[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/BackgroundLayer/Ground01"]
+position = Vector2(964, -202)
+scale = Vector2(7.687, 7.687)
+texture = ExtResource("3_m2te4")
+
+[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/BackgroundLayer/Ground01"]
+position = Vector2(-450, -202)
+scale = Vector2(7.687, 7.687)
+texture = ExtResource("3_m2te4")
+
+[node name="Ground03" type="Node2D" parent="ParallaxBackground/BackgroundLayer"]
+position = Vector2(0, 578)
+
+[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/BackgroundLayer/Ground03"]
+position = Vector2(964, -202)
+scale = Vector2(7.687, 7.687)
+texture = ExtResource("3_m2te4")
+
+[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/BackgroundLayer/Ground03"]
+position = Vector2(-450, -202)
+scale = Vector2(7.687, 7.687)
+texture = ExtResource("3_m2te4")
+
+[node name="Ground02" type="Node2D" parent="ParallaxBackground/BackgroundLayer"]
+position = Vector2(0, 563)
+
+[node name="Sprite2D3" type="Sprite2D" parent="ParallaxBackground/BackgroundLayer/Ground02"]
+position = Vector2(964, -202)
+scale = Vector2(7.687, 7.687)
+texture = ExtResource("3_m2te4")
+
+[node name="Sprite2D4" type="Sprite2D" parent="ParallaxBackground/BackgroundLayer/Ground02"]
+position = Vector2(-450, -202)
+scale = Vector2(7.687, 7.687)
+texture = ExtResource("3_m2te4")
+
+[node name="ColorRect" type="ColorRect" parent="ParallaxBackground/BackgroundLayer"]
+offset_left = -803.0
+offset_top = -2955.0
+offset_right = -84.0
+offset_bottom = -194.0
+color = Color(0.67451, 0.843137, 0.760784, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="ParallaxBackground/BackgroundLayer"]
+offset_left = 610.0
+offset_top = -2955.0
+offset_right = 1326.0
+offset_bottom = -195.0
+color = Color(0.67451, 0.843137, 0.760784, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="ParallaxBackground/BackgroundLayer"]
+offset_left = -803.0
+offset_top = 383.0
+offset_right = -84.0
+offset_bottom = 4120.0
+color = Color(0.392157, 0.25098, 0.133333, 1)
+
+[node name="ColorRect4" type="ColorRect" parent="ParallaxBackground/BackgroundLayer"]
+offset_left = 610.0
+offset_top = 383.0
+offset_right = 1326.0
+offset_bottom = 3627.0
+color = Color(0.392157, 0.25098, 0.133333, 1)
+
+[node name="ForegroundLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+z_index = 10
+motion_scale = Vector2(1.5, 1.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ForegroundLayer"]
+
+[node name="GameplayLayer" type="Node2D" parent="."]
+
+[node name="WaterArea" parent="GameplayLayer" instance=ExtResource("4_kxbgd")]
+z_index = 1
+position = Vector2(-5358, 884)
+scale = Vector2(240, 36.159)
+
+[node name="ColorRect2" type="ColorRect" parent="GameplayLayer/WaterArea"]
+z_index = -10
+material = SubResource("ShaderMaterial_iu1m7")
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+color = Color(0.232899, 0.539878, 0.716636, 1)
+
+[node name="Player" parent="GameplayLayer" groups=["player"] instance=ExtResource("7_kx1rr")]
+position = Vector2(-324, -2)
+
+[node name="Squirrel" parent="GameplayLayer" instance=ExtResource("8_gus8w")]
+position = Vector2(2319, -80)
+
+[node name="Squirrel2" parent="GameplayLayer" instance=ExtResource("8_gus8w")]
+position = Vector2(791, 116)
+
+[node name="TileMap" type="Node2D" parent="GameplayLayer"]
+position = Vector2(0, -911)
+scale = Vector2(6, 6)
+
+[node name="Layer01" type="TileMapLayer" parent="GameplayLayer/TileMap"]
+use_parent_material = true
+position = Vector2(0.166667, 0)
+tile_map_data = PackedByteArray("AAD6/wwABAAAAAQAAAD7/wwABAAAAAQAAAD8/wwABAAAAAQAAAD9/wwABAAAAAQAAAD+/wwABAAAAAQAAAD//wwABAAAAAQAAAAAAAwABAAAAAQAAAABAAwABAAAAAQAAAACAAwABAAAAAQAAAADAAwABAAAAAQAAAAEAAwABAAAAAQAAAAFAAwABAAAAAQAAAD6/w0ABAAAAAQAAAD7/w0ABAAAAAQAAAD8/w0ABAAAAAQAAAD9/w0ABAAAAAQAAAD+/w0ABAAAAAQAAAD//w0ABAAAAAQAAAAAAA0ABAAAAAQAAAABAA0ABAAAAAQAAAACAA0ABAAAAAQAAAADAA0ABAAAAAQAAAAEAA0ABAAAAAQAAAAFAA0ABAAAAAQAAAAFAA4ABAAAAAQAAAAEAA4ABAAAAAQAAAADAA4ABAAAAAQAAAACAA4ABAAAAAQAAAABAA4ABAAAAAQAAAAAAA4ABAAAAAQAAAD//w4ABAAAAAQAAAD+/w4ABAAAAAQAAAD9/w4ABAAAAAQAAAD8/w4ABAAAAAQAAAD7/w4ABAAAAAQAAAD6/w4ABAAAAAQAAAD6/wcAAgAAAAUAAAAGAAwABAAAAAQAAAAGAA0ABAAAAAQAAAAGAA4ABAAAAAQAAAAHAAwABAAAAAQAAAAIAAwABAAAAAQAAAAJAAwABAAAAAQAAAAKAAwABAAAAAQAAAALAAwABAAAAAQAAAAMAAwABAAAAAQAAAAMAA0ABAAAAAQAAAALAA0ABAAAAAQAAAALAA4ABAAAAAQAAAAKAA4ABAAAAAQAAAAJAA4ABAAAAAQAAAAIAA4ABAAAAAQAAAAHAA4ABAAAAAQAAAAHAA0ABAAAAAQAAAAIAA0ABAAAAAQAAAAJAA0ABAAAAAQAAAAKAA0ABAAAAAQAAAANAAwABAAAAAQAAAAOAAwABAAAAAQAAAAPAAwABAAAAAQAAAAQAAwABAAAAAQAAAARAAwABAAAAAQAAAASAAwABAAAAAQAAAATAAwABAAAAAQAAAAUAAwABAAAAAQAAAAUAA0ABAAAAAQAAAAUAA4ABAAAAAQAAAATAA4ABAAAAAQAAAASAA4ABAAAAAQAAAARAA4ABAAAAAQAAAAQAA4ABAAAAAQAAAAPAA4ABAAAAAQAAAAOAA4ABAAAAAQAAAANAA4ABAAAAAQAAAAMAA4ABAAAAAQAAAANAA0ABAAAAAQAAAAOAA0ABAAAAAQAAAAPAA0ABAAAAAQAAAAQAA0ABAAAAAQAAAARAA0ABAAAAAQAAAASAA0ABAAAAAQAAAATAA0ABAAAAAQAAAAVAAsABAABAAQAABAVAAoABAABAAMAAAAVAAkABAABAAIAAAAVAAwABAAAAAQAAAAWAAwABAAAAAQAAAAWAAsABAAAAAQAAAAWAAoABAAAAAQAAAAXAAoABAAAAAQAAAAYAAoABAAAAAQAAAAYAAsABAAAAAQAAAAXAAsABAAAAAQAAAAXAAwABAAAAAQAAAAYAAwABAAAAAQAAAAYAA0ABAAAAAQAAAAXAA0ABAAAAAQAAAAWAA0ABAAAAAQAAAAVAA0ABAAAAAQAAAAVAA4ABAAAAAQAAAAWAA4ABAAAAAQAAAAXAA4ABAAAAAQAAAAYAA4ABAAAAAQAAAAYAA8ABAAAAAQAAAAXAA8ABAAAAAQAAAAWAA8ABAAAAAQAAAAVAA8ABAAAAAQAAAAUAA8ABAAAAAQAAAATAA8ABAAAAAQAAAASAA8ABAAAAAQAAAARAA8ABAAAAAQAAAAQAA8ABAAAAAQAAAAPAA8ABAAAAAQAAAAOAA8ABAAAAAQAAAANAA8ABAAAAAQAAAAMAA8ABAAAAAQAAAALAA8ABAAAAAQAAAAKAA8ABAAAAAQAAAAJAA8ABAAAAAQAAAAIAA8ABAAAAAQAAAAHAA8ABAAAAAQAAAAGAA8ABAAAAAQAAAAFAA8ABAAAAAQAAAAEAA8ABAAAAAQAAAADAA8ABAAAAAQAAAACAA8ABAAAAAQAAAABAA8ABAAAAAQAAAD6/w8ABAAAAAQAAAD7/w8ABAAAAAQAAAD8/w8ABAAAAAQAAAD9/w8ABAAAAAQAAAD+/w8ABAAAAAQAAAD//w8ABAAAAAQAAAAAAA8ABAAAAAQAAAD6/xAABAAAAAQAAAD7/xAABAAAAAQAAAD8/xAABAAAAAQAAAD9/xAABAAAAAQAAAD+/xAABAAAAAQAAAD//xAABAAAAAQAAAAAABAABAAAAAQAAAABABAABAAAAAQAAAACABAABAAAAAQAAAADABAABAAAAAQAAAAEABAABAAAAAQAAAAFABAABAAAAAQAAAAGABAABAAAAAQAAAAHABAABAAAAAQAAAAIABAABAAAAAQAAAAJABAABAAAAAQAAAAKABAABAAAAAQAAAALABAABAAAAAQAAAAMABAABAAAAAQAAAANABAABAAAAAQAAAAOABAABAAAAAQAAAAPABAABAAAAAQAAAAQABAABAAAAAQAAAARABAABAAAAAQAAAASABAABAAAAAQAAAATABAABAAAAAQAAAAUABAABAAAAAQAAAAVABAABAAAAAQAAAAWABAABAAAAAQAAAAXABAABAAAAAQAAAAYABAABAAAAAQAAAAeAAkABAABAAIAABAeAAoABAABAAMAABAeAAwABAABAAMAABAeAA0ABAABAAMAABAeAA4ABAABAAMAABAeAA8ABAABAAMAABAeABAABAABAAMAABAdABAABAAAAAQAAAAdAA8ABAAAAAQAAAAdAA4ABAAAAAQAAAAdAA0ABAAAAAQAAAAdAAwABAAAAAQAAAAdAAsABAAAAAQAAAAcAAsABAAAAAQAAAAbAAsABAAAAAQAAAAaAAsABAAAAAQAAAAZAAsABAAAAAQAAAAZAAwABAAAAAQAAAAZAA0ABAAAAAQAAAAaAA0ABAAAAAQAAAAaAAwABAAAAAQAAAAbAAwABAAAAAQAAAAcAAwABAAAAAQAAAAcAA0ABAAAAAQAAAAcAA4ABAAAAAQAAAAcAA8ABAAAAAQAAAAcABAABAAAAAQAAAAbABAABAAAAAQAAAAaABAABAAAAAQAAAAZABAABAAAAAQAAAAZAA8ABAAAAAQAAAAZAA4ABAAAAAQAAAAaAA4ABAAAAAQAAAAbAA4ABAAAAAQAAAAbAA0ABAAAAAQAAAAbAA8ABAAAAAQAAAAaAA8ABAAAAAQAAAAdAAoABAAAAAQAAAAcAAoABAAAAAQAAAAbAAoABAAAAAQAAAAaAAoABAAAAAQAAAAZAAoABAAAAAQAAAD6/wsABAAAAAMAAAD7/wsABAAAAAMAAAD8/wsABAAAAAMAAAD9/wsABAAAAAMAAAD+/wsABAAAAAMAAAD//wsABAAAAAMAAAAAAAsABAAAAAMAAAABAAsABAAAAAMAAAACAAsABAAAAAMAAAADAAsABAAAAAMAAAAEAAsABAAAAAMAAAAFAAsABAAAAAMAAAAGAAsABAAAAAMAAAAUAAsABAAAAAMAAAATAAsABAAAAAMAAAASAAsABAAAAAMAAAARAAsABAAAAAMAAAAQAAsABAAAAAMAAAAPAAsABAAAAAMAAAAOAAsABAAAAAMAAAANAAsABAAAAAMAAAAMAAsABAAAAAMAAAALAAsABAAAAAMAAAAKAAsABAAAAAMAAAAJAAsABAAAAAMAAAAIAAsABAAAAAMAAAAHAAsABAAAAAMAAAAdAAkABAAAAAMAAAAcAAkABAAAAAMAAAAbAAkABAAAAAMAAAAaAAkABAAAAAMAAAAZAAkABAAAAAMAAAAYAAkABAAAAAMAAAAXAAkABAAAAAMAAAAWAAkABAAAAAMAAAAMABEABAAAAAQAAAALABEABAAAAAQAAAAKABEABAAAAAQAAAAJABEABAAAAAQAAAAIABEABAAAAAQAAAAHABEABAAAAAQAAAAGABEABAAAAAQAAAAFABEABAAAAAQAAAAEABEABAAAAAQAAAADABEABAAAAAQAAAACABEABAAAAAQAAAABABEABAAAAAQAAAD8/xEABAAAAAQAAAD7/xEABAAAAAQAAAD6/xEABAAAAAQAAAD9/xEABAAAAAQAAAD+/xEABAAAAAQAAAD//xEABAAAAAQAAAAAABEABAAAAAQAAAA=")
+tile_set = ExtResource("12_cu4fk")
+
+[node name="Layer00" type="TileMapLayer" parent="GameplayLayer/TileMap"]
+z_index = -1
+tile_set = ExtResource("12_cu4fk")
+
+[node name="Layer-01" type="TileMapLayer" parent="GameplayLayer/TileMap"]
+z_index = -2
+tile_set = ExtResource("12_cu4fk")
+
+[node name="LayerTree" type="TileMapLayer" parent="GameplayLayer/TileMap"]
+z_index = -1
+position = Vector2(0, -7)
+tile_set = ExtResource("12_cu4fk")
+
+[node name="tree00" parent="GameplayLayer" instance=ExtResource("15_7873c")]
+z_index = -1
+position = Vector2(960, -23)
+
+[node name="tree02" parent="GameplayLayer" instance=ExtResource("15_7873c")]
+z_index = -1
+position = Vector2(1133, -21)
+
+[node name="tree05" parent="GameplayLayer" instance=ExtResource("15_7873c")]
+z_index = -1
+position = Vector2(1418, -19)
+
+[node name="tree06" parent="GameplayLayer" instance=ExtResource("15_7873c")]
+z_index = -1
+position = Vector2(1795, -19)
+
+[node name="tree01" parent="GameplayLayer" instance=ExtResource("15_7873c")]
+position = Vector2(2698, -214)
+
+[node name="tree03" parent="GameplayLayer" instance=ExtResource("15_7873c")]
+position = Vector2(1604, -1)
+
+[node name="tree04" parent="GameplayLayer" instance=ExtResource("16_ymej5")]
+position = Vector2(1037, 4)
+
+[node name="tree07" parent="GameplayLayer" instance=ExtResource("16_ymej5")]
+z_index = -1
+position = Vector2(2411, -193)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+script = ExtResource("19_qfl0r")
+target_node_path = NodePath("../GameplayLayer/Player")
