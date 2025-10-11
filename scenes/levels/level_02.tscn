@@ -151,7 +151,7 @@ motion_scale = Vector2(1.5, 1.5)
 
 [node name="WaterArea" parent="GameplayLayer" instance=ExtResource("4_kxbgd")]
 z_index = 1
-position = Vector2(-5358, 884)
+position = Vector2(-5366, 892)
 scale = Vector2(240, 36.159)
 
 [node name="ColorRect2" type="ColorRect" parent="GameplayLayer/WaterArea"]
