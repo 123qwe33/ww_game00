@@ -2,11 +2,6 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Godot Project Commands
-- Run game: Use Godot Editor (F5 or play button)
-- Scene testing: Open specific scene and test with F6
-- No formal test framework or linting tools configured
-
 ## Code Style Guidelines
 - **Structure**: `extends` first, followed by @onready/@export vars, constants, variables, functions
 - **Naming**: snake_case for variables/functions, UPPER_CASE for constants
