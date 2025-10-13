@@ -2,11 +2,6 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Godot Project Commands
-- Run game: Use Godot Editor (F5 or play button)
-- Scene testing: Open specific scene and test with F6
-- No formal test framework or linting tools configured
-
 ## Code Style Guidelines
 - **Structure**: `extends` first, followed by @onready/@export vars, constants, variables, functions
 - **Naming**: snake_case for variables/functions, UPPER_CASE for constants
@@ -24,3 +19,25 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - Physics-based movement with move_and_slide()
 - Timer-based behavior changes
 - Signal connections for event handling
+
+## Game Management Systems
+This project uses autoload singletons for global game systems:
+- **GameManager**: Handles level progression, player lifecycle, and level-to-music associations
+- **SoundManager**: Centralized audio playback for music, sound effects, and UI sounds
+
+For detailed documentation on these systems, see `/scripts/autoloads/CLAUDE.MD`
+
+**Quick Reference**:
+```gdscript
+# Trigger level transition (automatically plays level music)
+GameManager.next_level()
+
+# Play music for a specific level
+GameManager.play_level_music(2)
+
+# Play sound effects
+SoundManager.play_fx_sound("land")
+
+# Add music for new levels
+GameManager.level_music[3] = "phantom"
+```
