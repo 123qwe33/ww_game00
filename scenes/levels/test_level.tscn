@@ -1,17 +1,26 @@
-[gd_scene load_steps=3 format=3 uid="uid://c4kapufly3lwy"]
+[gd_scene load_steps=5 format=3 uid="uid://c4kapufly3lwy"]
 
-[ext_resource type="PackedScene" uid="uid://c7ff4v7yrgxf0" path="res://scenes/player/player.tscn" id="1_jbqir"]
+[ext_resource type="PackedScene" uid="uid://ccy3elu7vhr5b" path="res://scenes/player/player.tscn" id="1_jbqir"]
+[ext_resource type="PackedScene" uid="uid://gk1ch1ddofex" path="res://scenes/player/character.tscn" id="2_yautc"]
+[ext_resource type="PackedScene" uid="uid://bct5gpgrxcvt5" path="res://scenes/player/player2.tscn" id="3_fr1um"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yautc"]
 size = Vector2(2080, 20)
 
 [node name="test_level" type="Node2D"]
 
-[node name="Player" parent="." instance=ExtResource("1_jbqir")]
-position = Vector2(412, 309)
-
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 position = Vector2(555, 637)
 shape = SubResource("RectangleShape2D_yautc")
+
+[node name="Character" parent="." instance=ExtResource("2_yautc")]
+position = Vector2(843, 423)
+
+[node name="Player" parent="." instance=ExtResource("1_jbqir")]
+position = Vector2(518, 394)
+
+[node name="Player2" parent="." instance=ExtResource("3_fr1um")]
+position = Vector2(259, 366)
+do_item_prompt = false
