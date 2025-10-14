@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cuorxp7tsrksj" path="res://assets/environment/level_01/ground.png" id="3_m2te4"]
 [ext_resource type="PackedScene" uid="uid://5wrfbynl6rl4" path="res://scenes/components/water_area.tscn" id="4_kxbgd"]
 [ext_resource type="Shader" uid="uid://djjnohg6p88cy" path="res://shaders/water_area.gdshader" id="5_lky54"]
-[ext_resource type="PackedScene" uid="uid://c7ff4v7yrgxf0" path="res://scenes/player/player.tscn" id="7_kx1rr"]
+[ext_resource type="PackedScene" uid="uid://ccy3elu7vhr5b" path="res://scenes/player/player.tscn" id="7_kx1rr"]
 [ext_resource type="PackedScene" uid="uid://qyluy8f7x30h" path="res://scenes/enemies/squirrel.tscn" id="8_gus8w"]
 [ext_resource type="TileSet" uid="uid://co81d1ev52we3" path="res://assets/tilesets/forest_tileset.tres" id="12_cu4fk"]
 [ext_resource type="PackedScene" uid="uid://b4slcsd74pbsi" path="res://scenes/components/tree_00.tscn" id="15_7873c"]
