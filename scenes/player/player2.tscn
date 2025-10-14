@@ -7,3 +7,4 @@
 script = ExtResource("2_0byj5")
 do_item_prompt = true
 input_enabled = true
+input_prefix = "p2"

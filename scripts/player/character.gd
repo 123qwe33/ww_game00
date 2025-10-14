@@ -24,6 +24,7 @@ var inventory: Dictionary = {}  # Tracks items collected by the character
 var current_held_item: String = ""  # ID of the currently held item
 @export var do_item_prompt: bool = false
 @export var input_enabled: bool = false
+@export var input_prefix: String = "p1"  # Input action prefix for player-specific controls
 
 func _physics_process(delta):
 	
@@ -42,26 +43,30 @@ func _physics_process(delta):
 		air_time = 0.0
 
 	# Handle Jump.
-	if Input.is_action_just_pressed("ui_accept"):
+	var jump_action = "%s_jump" % input_prefix
+	if Input.is_action_just_pressed(jump_action):
 		if input_blocked:
 			print("Jump blocked - just unpaused!")
-			
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor() and not input_blocked and input_enabled:
+
+	if Input.is_action_just_pressed(jump_action) and is_on_floor() and not input_blocked and input_enabled:
 		velocity.y = JUMP_VELOCITY
 		air_time = AIR_THRESHOLD  # Immediately consider this a real jump
 		
 	# Handle dropping items
-	if Input.is_action_just_pressed("drop_item") and not current_held_item.is_empty() and input_enabled:
+	var drop_action = "%s_drop_item" % input_prefix
+	if Input.is_action_just_pressed(drop_action) and not current_held_item.is_empty() and input_enabled:
 		SoundManager.play_fx_sound(current_held_item)
 		drop_item(current_held_item)
 		
 	# Handle rotating through inventory items
-	if Input.is_action_just_pressed("rotate_held_item") and input_enabled:
+	var rotate_action = "%s_rotate_held_item" % input_prefix
+	if Input.is_action_just_pressed(rotate_action) and input_enabled:
 		rotate_held_item()
 
 	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction = Input.get_axis("ui_left", "ui_right")
+	var left_action = "%s_left" % input_prefix
+	var right_action = "%s_right" % input_prefix
+	var direction = Input.get_axis(left_action, right_action)
 
 	# Flip the sprite based on direction
 	if direction > 0 and input_enabled:
