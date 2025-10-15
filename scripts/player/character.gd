@@ -2,7 +2,7 @@ extends CharacterBody2D
 class_name Character
 
 func _ready():
-	
+	add_to_group("player")
 	# Initialize the held item sprite to be invisible at start
 	held_item_sprite.visible = false
 

@@ -1,7 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://bct5gpgrxcvt5"]
+[gd_scene load_steps=11 format=3 uid="uid://bct5gpgrxcvt5"]
 
 [ext_resource type="PackedScene" uid="uid://gk1ch1ddofex" path="res://scenes/player/character.tscn" id="1_k4qxg"]
-[ext_resource type="Script" uid="uid://n6y336pvsstc" path="res://scripts/player/player.gd" id="2_0byj5"]
 [ext_resource type="Texture2D" uid="uid://7nmft2diqqbd" path="res://assets/sprites/player/player2_sheet.png" id="3_0byj5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jpx7o"]
@@ -75,7 +74,6 @@ animations = [{
 }]
 
 [node name="Player" instance=ExtResource("1_k4qxg")]
-script = ExtResource("2_0byj5")
 do_item_prompt = true
 input_enabled = true
 input_prefix = "p2"
