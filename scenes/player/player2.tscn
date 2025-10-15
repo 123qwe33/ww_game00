@@ -81,4 +81,5 @@ input_enabled = true
 input_prefix = "p2"
 
 [node name="AnimatedSprite2D" parent="." index="0"]
+scale = Vector2(5.2, 5.2)
 sprite_frames = SubResource("SpriteFrames_wegus")
