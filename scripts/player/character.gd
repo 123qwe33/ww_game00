@@ -1,34 +1,30 @@
 extends CharacterBody2D
+class_name Character
 
-# Add to "player" group so squirrels can detect us
 func _ready():
 	add_to_group("player")
-	
 	# Initialize the held item sprite to be invisible at start
 	held_item_sprite.visible = false
 
 @onready var sprite = $AnimatedSprite2D
 @onready var held_item_sprite = $HeldItem/Sprite2D
 
-# Death settings
-const DEATH_Y_THRESHOLD = 2000  # How far the player can fall before dying
-
+const DEATH_Y_THRESHOLD = 2000  # How far the actor can fall before dying
 const SPEED = 300.0
 const JUMP_VELOCITY = -500.0
 const AIR_THRESHOLD = 0.15  # Time in seconds to ignore brief air states
 const PUSH_FORCE = 100.0 # Adjust this value later!
+const MAX_INVENTORY_SIZE = 2  # Maximum number of different items character can carry
+const MAX_STACK_SIZE = 99  # Maximum number of the same item character can carry
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-var air_time = 0.0  # Tracks how long player has been in the air
-var inventory: Dictionary = {}  # Tracks items collected by the player
+var air_time = 0.0  # Tracks how long character has been in the air
+var inventory: Dictionary = {}  # Tracks items collected by the character
 var current_held_item: String = ""  # ID of the currently held item
-const MAX_INVENTORY_SIZE = 2  # Maximum number of different items player can carry
-const MAX_STACK_SIZE = 99  # Maximum number of the same item player can carry
-
-var do_item_prompt = true
-
-var input_enabled := true
+@export var do_item_prompt: bool = false
+@export var input_enabled: bool = false
+@export var input_prefix: String = "p1"  # Input action prefix for player-specific controls
 
 func _physics_process(delta):
 	
@@ -47,26 +43,30 @@ func _physics_process(delta):
 		air_time = 0.0
 
 	# Handle Jump.
-	if Input.is_action_just_pressed("ui_accept"):
+	var jump_action = "%s_jump" % input_prefix
+	if Input.is_action_just_pressed(jump_action):
 		if input_blocked:
 			print("Jump blocked - just unpaused!")
-			
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor() and not input_blocked and input_enabled:
+
+	if Input.is_action_just_pressed(jump_action) and is_on_floor() and not input_blocked and input_enabled:
 		velocity.y = JUMP_VELOCITY
 		air_time = AIR_THRESHOLD  # Immediately consider this a real jump
 		
 	# Handle dropping items
-	if Input.is_action_just_pressed("drop_item") and not current_held_item.is_empty() and input_enabled:
+	var drop_action = "%s_drop_item" % input_prefix
+	if Input.is_action_just_pressed(drop_action) and not current_held_item.is_empty() and input_enabled:
 		SoundManager.play_fx_sound(current_held_item)
 		drop_item(current_held_item)
 		
 	# Handle rotating through inventory items
-	if Input.is_action_just_pressed("rotate_held_item") and input_enabled:
+	var rotate_action = "%s_rotate_held_item" % input_prefix
+	if Input.is_action_just_pressed(rotate_action) and input_enabled:
 		rotate_held_item()
 
 	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction = Input.get_axis("ui_left", "ui_right")
+	var left_action = "%s_left" % input_prefix
+	var right_action = "%s_right" % input_prefix
+	var direction = Input.get_axis(left_action, right_action)
 
 	# Flip the sprite based on direction
 	if direction > 0 and input_enabled:

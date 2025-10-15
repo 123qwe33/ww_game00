@@ -1,12 +1,13 @@
-[gd_scene load_steps=13 format=4 uid="uid://c4p3782e64rjw"]
+[gd_scene load_steps=14 format=4 uid="uid://c4p3782e64rjw"]
 
 [ext_resource type="Texture2D" uid="uid://bl07lth33wqug" path="res://assets/environment/level_01/background.png" id="1_01hg1"]
 [ext_resource type="Texture2D" uid="uid://c78ybfhcqj8wm" path="res://assets/environment/level_01/sky.png" id="2_v5pqk"]
 [ext_resource type="Texture2D" uid="uid://cuorxp7tsrksj" path="res://assets/environment/level_01/ground.png" id="3_m2te4"]
 [ext_resource type="PackedScene" uid="uid://5wrfbynl6rl4" path="res://scenes/components/water_area.tscn" id="4_kxbgd"]
 [ext_resource type="Shader" uid="uid://djjnohg6p88cy" path="res://shaders/water_area.gdshader" id="5_lky54"]
-[ext_resource type="PackedScene" uid="uid://c7ff4v7yrgxf0" path="res://scenes/player/player.tscn" id="7_kx1rr"]
+[ext_resource type="PackedScene" uid="uid://ccy3elu7vhr5b" path="res://scenes/player/player.tscn" id="7_kx1rr"]
 [ext_resource type="PackedScene" uid="uid://qyluy8f7x30h" path="res://scenes/enemies/squirrel.tscn" id="8_gus8w"]
+[ext_resource type="PackedScene" uid="uid://bct5gpgrxcvt5" path="res://scenes/player/player2.tscn" id="11_4hx2o"]
 [ext_resource type="TileSet" uid="uid://co81d1ev52we3" path="res://assets/tilesets/forest_tileset.tres" id="12_cu4fk"]
 [ext_resource type="PackedScene" uid="uid://b4slcsd74pbsi" path="res://scenes/components/tree_00.tscn" id="15_7873c"]
 [ext_resource type="PackedScene" uid="uid://de0rquhbjtq8y" path="res://scenes/components/tree_01.tscn" id="16_ymej5"]
@@ -164,7 +165,10 @@ offset_bottom = 20.0
 color = Color(0.232899, 0.539878, 0.716636, 1)
 
 [node name="Player" parent="GameplayLayer" groups=["player"] instance=ExtResource("7_kx1rr")]
-position = Vector2(-357, 45)
+position = Vector2(-214, 55)
+
+[node name="Player2" parent="GameplayLayer" instance=ExtResource("11_4hx2o")]
+position = Vector2(-367, 54)
 
 [node name="Squirrel" parent="GameplayLayer" instance=ExtResource("8_gus8w")]
 position = Vector2(2319, -80)
@@ -238,4 +242,3 @@ tile_set = ExtResource("12_cu4fk")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 script = ExtResource("19_qfl0r")
-target_node_path = NodePath("../GameplayLayer/Player")

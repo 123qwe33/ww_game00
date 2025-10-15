@@ -1,7 +1,7 @@
 [gd_scene load_steps=22 format=4 uid="uid://cam6hf1neqsgp"]
 
 [ext_resource type="Texture2D" uid="uid://bl07lth33wqug" path="res://assets/environment/level_01/background.png" id="1_2djvx"]
-[ext_resource type="PackedScene" uid="uid://c7ff4v7yrgxf0" path="res://scenes/player/player.tscn" id="1_m802k"]
+[ext_resource type="PackedScene" uid="uid://ccy3elu7vhr5b" path="res://scenes/player/player.tscn" id="1_m802k"]
 [ext_resource type="Texture2D" uid="uid://c78ybfhcqj8wm" path="res://assets/environment/level_01/sky.png" id="2_1ey3t"]
 [ext_resource type="Texture2D" uid="uid://bdw7ishpykgcw" path="res://assets/sprites/statics/ford_focus.png" id="2_50wog"]
 [ext_resource type="Script" uid="uid://dwmwlx4kdumig" path="res://scripts/components/camera_2d.gd" id="2_i2aat"]
@@ -300,6 +300,5 @@ position = Vector2(795, 117)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 script = ExtResource("2_i2aat")
-target_node_path = NodePath("../GameplayLayer/Player")
 
 [connection signal="body_entered" from="GameplayLayer/TriggerZone" to="GameplayLayer/TriggerZone" method="_on_body_entered"]

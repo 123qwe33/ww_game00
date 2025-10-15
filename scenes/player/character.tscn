@@ -1,38 +1,38 @@
-[gd_scene load_steps=13 format=3 uid="uid://cd5hmb5c78g2o"]
+[gd_scene load_steps=13 format=3 uid="uid://gk1ch1ddofex"]
 
-[ext_resource type="Script" uid="uid://n6y336pvsstc" path="res://scripts/player/player.gd" id="1_wlarw"]
-[ext_resource type="Texture2D" uid="uid://cpoqv8khklhdp" path="res://assets/sprites/player/player_sheet.png" id="2_ipfdm"]
+[ext_resource type="Script" uid="uid://beoh481mgdugl" path="res://scripts/player/character.gd" id="1_ntlox"]
+[ext_resource type="Texture2D" uid="uid://cpoqv8khklhdp" path="res://assets/sprites/player/player_sheet.png" id="2_unmdi"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dovo2"]
-atlas = ExtResource("2_ipfdm")
+atlas = ExtResource("2_unmdi")
 region = Rect2(0, 32, 18, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5gtgg"]
-atlas = ExtResource("2_ipfdm")
+atlas = ExtResource("2_unmdi")
 region = Rect2(18, 32, 18, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gmlin"]
-atlas = ExtResource("2_ipfdm")
+atlas = ExtResource("2_unmdi")
 region = Rect2(0, 0, 18, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lvxji"]
-atlas = ExtResource("2_ipfdm")
+atlas = ExtResource("2_unmdi")
 region = Rect2(18, 0, 18, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p47bc"]
-atlas = ExtResource("2_ipfdm")
+atlas = ExtResource("2_unmdi")
 region = Rect2(36, 0, 18, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_75vfm"]
-atlas = ExtResource("2_ipfdm")
+atlas = ExtResource("2_unmdi")
 region = Rect2(54, 0, 18, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0owmy"]
-atlas = ExtResource("2_ipfdm")
+atlas = ExtResource("2_unmdi")
 region = Rect2(36, 0, 18, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qek5x"]
-atlas = ExtResource("2_ipfdm")
+atlas = ExtResource("2_unmdi")
 region = Rect2(18, 0, 18, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_je7p5"]
@@ -81,8 +81,8 @@ animations = [{
 radius = 45.0
 height = 172.0
 
-[node name="Player" type="CharacterBody2D"]
-script = ExtResource("1_wlarw")
+[node name="Character" type="CharacterBody2D"]
+script = ExtResource("1_ntlox")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
