@@ -5,4 +5,5 @@
 
 [node name="Chris" instance=ExtResource("1_55n2m")]
 script = ExtResource("2_35ti2")
+stop_distance = 500.0
 input_prefix = "p3"

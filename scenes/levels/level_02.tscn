@@ -243,6 +243,7 @@ tile_set = ExtResource("12_cu4fk")
 
 [node name="Chris" parent="GameplayLayer" instance=ExtResource("12_n536o")]
 position = Vector2(583, 25)
+stop_distance = 500.0
 
 [node name="Camera2D" type="Camera2D" parent="."]
 script = ExtResource("19_qfl0r")
