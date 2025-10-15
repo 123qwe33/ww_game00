@@ -300,6 +300,5 @@ position = Vector2(795, 117)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 script = ExtResource("2_i2aat")
-target_node_path = NodePath("../GameplayLayer/Player")
 
 [connection signal="body_entered" from="GameplayLayer/TriggerZone" to="GameplayLayer/TriggerZone" method="_on_body_entered"]

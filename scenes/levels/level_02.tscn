@@ -242,4 +242,3 @@ tile_set = ExtResource("12_cu4fk")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 script = ExtResource("19_qfl0r")
-target_node_path = NodePath("../GameplayLayer/Player")
