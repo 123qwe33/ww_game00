@@ -3,7 +3,6 @@ extends Node2D
 @export var speed := 100.0
 @export var move_distance := -800.0
 var moving := false
-var done := false
 var start_position: Vector2
 var target_position: Vector2
 
@@ -13,6 +12,7 @@ func _ready() -> void:
 
 func start_moving():
 	moving = true
+	GameManager.next_level()
 
 func _process(delta: float) -> void:
 	if moving:
@@ -20,7 +20,8 @@ func _process(delta: float) -> void:
 		if position.distance_to(target_position) < 1.0:
 			position = target_position
 			moving = false
-			done = true
-	elif done:
-		await get_tree().create_timer(7).timeout
-		GameManager.next_level()
+			_on_movement_complete()
+
+func _on_movement_complete() -> void:
+	await get_tree().create_timer(7).timeout
+	GameManager.next_level()
