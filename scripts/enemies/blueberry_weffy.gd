@@ -12,7 +12,6 @@ func _ready() -> void:
 
 func start_moving():
 	moving = true
-	GameManager.next_level()
 
 func _process(delta: float) -> void:
 	if moving:
