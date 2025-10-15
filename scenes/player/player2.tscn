@@ -73,8 +73,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Player" instance=ExtResource("1_k4qxg")]
-do_item_prompt = true
+[node name="Player2" instance=ExtResource("1_k4qxg")]
 input_enabled = true
 input_prefix = "p2"
 
