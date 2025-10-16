@@ -23,4 +23,3 @@ position = Vector2(518, 394)
 
 [node name="Player2" parent="." instance=ExtResource("3_fr1um")]
 position = Vector2(259, 366)
-do_item_prompt = false
