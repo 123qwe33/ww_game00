@@ -5,3 +5,4 @@
 [node name="Player" instance=ExtResource("1_8afob")]
 do_item_prompt = true
 input_enabled = true
+group = "player"

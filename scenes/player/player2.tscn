@@ -76,6 +76,7 @@ animations = [{
 [node name="Player2" instance=ExtResource("1_k4qxg")]
 input_enabled = true
 input_prefix = "p2"
+group = "player"
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 scale = Vector2(5.2, 5.2)

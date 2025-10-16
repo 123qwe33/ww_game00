@@ -120,6 +120,11 @@ p2_rotate_held_item={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="world"
+2d_physics/layer_2="characters"
+
 [mono]
 
 project/assembly_name="ww_game00"

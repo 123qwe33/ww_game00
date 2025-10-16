@@ -1,11 +1,6 @@
 extends CharacterBody2D
 class_name Character
 
-func _ready():
-	add_to_group("player")
-	# Initialize the held item sprite to be invisible at start
-	held_item_sprite.visible = false
-
 # Virtual method for getting movement direction - can be overridden by NPCs
 func get_movement_direction() -> float:
 	var left_action = "%s_left" % input_prefix
@@ -31,6 +26,12 @@ var current_held_item: String = ""  # ID of the currently held item
 @export var do_item_prompt: bool = false
 @export var input_enabled: bool = false
 @export var input_prefix: String = "p1"  # Input action prefix for player-specific controls
+@export var group: String = "npc"  # Input action prefix for player-specific controls
+
+func _ready():
+	add_to_group(group)
+	# Initialize the held item sprite to be invisible at start
+	held_item_sprite.visible = false
 
 func _physics_process(delta):
 	

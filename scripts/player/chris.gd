@@ -1,6 +1,6 @@
 extends NPC
 
-@export var stop_distance: float = 500.0
+const STOP_DISTANCE: float = 200.0
 
 var player: Character = null
 
@@ -17,7 +17,7 @@ func _physics_process(delta):
 		var distance_to_player = global_position.distance_to(player.global_position)
 
 		# Walk left if we're too far from the player
-		if distance_to_player > stop_distance:
+		if distance_to_player > STOP_DISTANCE:
 			movement_direction = -1.0
 		else:
 			movement_direction = 0.0
