@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://rmmyfulrjwue"]
+
+[ext_resource type="Script" uid="uid://d0q074ntru14w" path="res://scripts/components/dialog_box.gd" id="1_jg480"]
+[ext_resource type="Theme" uid="uid://epd3h3ptpsir" path="res://assets/theme.tres" id="2_cbk0e"]
+
+[node name="DialogBox" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_jg480")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme = ExtResource("2_cbk0e")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
