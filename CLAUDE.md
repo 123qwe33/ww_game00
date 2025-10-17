@@ -41,3 +41,27 @@ SoundManager.play_fx_sound("land")
 # Add music for new levels
 GameManager.level_music[3] = "phantom"
 ```
+
+## Character System
+This project uses an inheritance-based character system that supports both player-controlled and NPC characters:
+- **Character**: Base class with physics, movement, inventory, and animation systems
+- **Player/Player2**: Scene instances configured with different `input_prefix` values (p1, p2)
+- **NPC**: Programmatic movement control via `movement_direction` variable
+- **Chris**: Example NPC with simple follow-player AI
+
+For detailed documentation on the character system architecture, creating new players/NPCs, and the input system, see `/scripts/player/CLAUDE.MD`
+
+**Quick Reference**:
+```gdscript
+# Creating a new player (in scene, set exported vars)
+input_enabled = true
+input_prefix = "p3"  # Must have matching input actions in Project Settings
+group = "player"
+
+# Creating a new NPC (extend NPC class)
+extends NPC
+
+func _physics_process(delta):
+	movement_direction = 1.0  # -1 (left), 0 (stop), 1 (right)
+	super._physics_process(delta)  # Let Character handle physics
+```
