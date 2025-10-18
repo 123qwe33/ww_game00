@@ -1,8 +1,9 @@
 extends Control
 
-@onready var label: Label = $PanelContainer/MarginContainer/Label
-@onready var panel: PanelContainer = $PanelContainer
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
+# Node references - will be fetched in _ready
+var label: Label = null
+var panel: PanelContainer = null
+var animation_player: AnimationPlayer = null
 
 const FADE_DURATION = 0.2
 const OFFSET_ABOVE_CHARACTER = Vector2(0, -60)
@@ -11,22 +12,28 @@ var is_open: bool = false
 var target_character: Node2D = null
 
 func _ready():
+	# Fetch child nodes explicitly
+	panel = get_node("PanelContainer") as PanelContainer
+	label = get_node("PanelContainer/MarginContainer/Label") as Label
+	animation_player = get_node("AnimationPlayer") as AnimationPlayer
+
+	# Verify nodes were found
+	if not label or not panel or not animation_player:
+		push_error("DialogBox: Failed to find required child nodes!")
+		push_error("  - Panel: %s" % panel)
+		push_error("  - Label: %s" % label)
+		push_error("  - AnimationPlayer: %s" % animation_player)
+		return
+
 	# Start hidden
 	modulate.a = 0.0
 	visible = false
 
-	# Debug: Check if nodes are found
-	if not label:
-		push_error("DialogBox: Label node not found!")
-	if not panel:
-		push_error("DialogBox: PanelContainer node not found!")
-	if not animation_player:
-		push_error("DialogBox: AnimationPlayer node not found!")
-
 func show_dialog(text: String, character: Node2D = null):
 	"""Display dialog box with given text above character"""
-	if not label:
-		push_error("DialogBox: Cannot show dialog, label is null!")
+	# Double-check nodes are available
+	if not label or not panel:
+		push_error("DialogBox: Cannot show dialog, nodes not initialized!")
 		return
 
 	if is_open:
