@@ -21,7 +21,7 @@ func _ready():
 	# Fetch child nodes explicitly
 	panel = get_node("PanelContainer") as PanelContainer
 	label = get_node("PanelContainer/MarginContainer/Label") as Label
-	indicator_label = get_node("PanelContainer/IndicatorLabel") as Label
+	indicator_label = get_node("PanelContainer/MarginContainer2/IndicatorLabel") as Label
 	animation_player = get_node("AnimationPlayer") as AnimationPlayer
 
 	# Verify nodes were found
