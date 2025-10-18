@@ -165,10 +165,10 @@ func _update_indicator():
 
 	if current_slide_index < dialog_slides.size() - 1:
 		# More slides remaining
-		indicator_label.text = "▼ Press E/F"
+		indicator_label.text = "▼"
 	else:
 		# Last slide
-		indicator_label.text = "✓ Press E/F"
+		indicator_label.text = "✓"
 
 func _unhandled_input(event):
 	"""Handle interaction input to advance dialog"""
