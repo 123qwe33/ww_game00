@@ -22,6 +22,7 @@ texture = ExtResource("1_objyf")
 region_rect = Rect2(0, 27, 0, 0)
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_w52ge")
