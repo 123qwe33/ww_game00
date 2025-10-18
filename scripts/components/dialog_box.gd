@@ -6,7 +6,7 @@ var panel: PanelContainer = null
 var animation_player: AnimationPlayer = null
 
 const FADE_DURATION = 0.2
-const OFFSET_ABOVE_CHARACTER = Vector2(0, -60)
+const OFFSET_ABOVE_CHARACTER = Vector2(0, -150)
 
 var is_open: bool = false
 var target_character: Node2D = null
