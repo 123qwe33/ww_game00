@@ -20,8 +20,6 @@ func _setup_dialog_box():
 	"""Setup dialog box asynchronously"""
 	dialog_box = DialogBox.instantiate()
 	add_child(dialog_box)
-	# Connect to dialog_closed signal to drop held item when dialog closes
-	dialog_box.dialog_closed.connect(_on_dialog_closed)
 	# Wait one frame for the node to be fully initialized
 	await get_tree().process_frame
 	dialog_ready = true
@@ -56,12 +54,6 @@ func _show_dialog_when_ready():
 			"Hey! I finally caught up to you!",
 			"I've been chasing you for a while!",
 			"Nice to see you again!"
-		], ["p1_interact", "p2_interact"], self)
+		], ["p1_interact", "p2_interact"], self, true)  # true = drops item when closed
 	else:
 		push_error("Chris: Dialog box is null when trying to show dialog!")
-
-func _on_dialog_closed(character: Node2D):
-	"""Handler for when dialog is closed - drop held item if we own the dialog"""
-	# Check if this dialog belongs to this NPC
-	if character == self and not current_held_item.is_empty():
-		drop_item(current_held_item)

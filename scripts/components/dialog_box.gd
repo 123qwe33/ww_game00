@@ -14,6 +14,7 @@ const OFFSET_ABOVE_CHARACTER = Vector2(0, -150)
 
 var is_open: bool = false
 var target_character: Node2D = null
+var gives_item: bool = false  # If true, character drops held item when dialog closes
 
 # Multi-slide dialog support
 var dialog_slides: Array = []
@@ -41,7 +42,7 @@ func _ready():
 	visible = false
 	indicator_label.visible = false
 
-func show_dialog(text: String, character: Node2D = null):
+func show_dialog(text: String, character: Node2D = null, drop_item: bool = false):
 	"""Display dialog box with given text above character (single dialog, no interaction)"""
 	# Double-check nodes are available
 	if not label or not panel:
@@ -60,6 +61,7 @@ func show_dialog(text: String, character: Node2D = null):
 
 	is_open = true
 	target_character = character
+	gives_item = drop_item
 	label.text = text
 
 	# Hide indicator for simple dialogs
@@ -93,14 +95,21 @@ func hide_dialog():
 	if target_character:
 		dialog_closed.emit(target_character)
 
+		# If gives_item is true, make the character drop their held item
+		if gives_item and target_character.has_method("drop_item"):
+			# Check if character has a held item using property existence check
+			if "current_held_item" in target_character and not target_character.current_held_item.is_empty():
+				target_character.drop_item(target_character.current_held_item)
+
 	# Fade out
 	var tween = create_tween()
 	tween.tween_property(self, "modulate:a", 0.0, FADE_DURATION)
 	tween.tween_callback(func(): visible = false)
 
 	target_character = null
+	gives_item = false
 
-func show_multiple_dialogs(slides: Array, interaction_keys: Array, character: Node2D = null):
+func show_multiple_dialogs(slides: Array, interaction_keys: Array, character: Node2D = null, drop_item: bool = false):
 	"""Display multi-slide dialog with interaction support"""
 	if not label or not panel or not indicator_label:
 		push_error("DialogBox: Cannot show dialog, nodes not initialized!")
@@ -117,6 +126,7 @@ func show_multiple_dialogs(slides: Array, interaction_keys: Array, character: No
 
 	is_open = true
 	target_character = character
+	gives_item = drop_item
 
 	# Show first slide
 	_show_current_slide()
