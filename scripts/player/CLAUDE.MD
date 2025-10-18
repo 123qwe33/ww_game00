@@ -192,14 +192,27 @@ The dialog system allows NPCs to display text in speech bubbles that follow char
 ### Key DialogBox Methods
 
 **`show_dialog(text: String, character: Node2D = null)`**
-- Displays dialog box with given text
+- Displays single dialog box with given text (no player interaction required)
 - If character provided, positions box above character and follows them
 - Auto-fades in over `FADE_DURATION` (0.2s)
 - If already open, updates text without re-animating
 
+**`show_multiple_dialogs(slides: Array, interaction_keys: Array, character: Node2D = null)`**
+- Displays multi-slide dialog that requires player interaction to advance
+- `slides`: Array of strings, each representing one dialog slide
+- `interaction_keys`: Array of input action names (typically `["p1_interact", "p2_interact"]`)
+- Players press their interact action to advance through slides
+- Shows visual indicator: "▼" for more slides, "✓" on final slide
+- Automatically closes after last slide is advanced
+
+**`advance()`**
+- Advances to the next slide in a multi-slide dialog
+- Called automatically by `_unhandled_input()` when player presses interact
+- Can be called manually for programmatic control
+
 **`hide_dialog()`**
 - Fades out and hides the dialog box
-- Clears target character reference
+- Clears target character reference and multi-slide state
 
 ### Important Implementation Details
 
@@ -236,8 +249,23 @@ func _show_dialog_when_ready():
 - Waiting one frame after `add_child()` ensures `_ready()` has completed
 - Using a ready flag prevents race conditions when called from `_physics_process()`
 
-### Usage Example (Chris NPC)
+### Player Interaction Requirements
 
+For interactive dialogs to work, players must have interact actions defined in Project Settings:
+- `p1_interact` - Player 1's interact action
+- `p2_interact` - Player 2's interact action
+
+These actions are used by `show_multiple_dialogs()` to allow players to advance through dialog slides.
+
+### Usage Examples
+
+**Single Dialog (No Interaction)**:
+```gdscript
+# Simple one-line dialog that doesn't require player input
+dialog_box.show_dialog("Hey! I finally caught up to you!", self)
+```
+
+**Multi-Slide Interactive Dialog (Chris NPC)**:
 ```gdscript
 extends NPC
 
@@ -275,7 +303,12 @@ func _show_dialog_when_ready():
 	while not dialog_ready:
 		await get_tree().process_frame
 
-	dialog_box.show_dialog("Hey! I finally caught up to you!", self)
+	# Multi-slide dialog with player interaction
+	dialog_box.show_multiple_dialogs([
+		"Hey! I finally caught up to you!",
+		"I've been chasing you for a while!",
+		"Nice to see you again!"
+	], ["p1_interact", "p2_interact"], self)
 ```
 
 ### Constants and Configuration
@@ -288,7 +321,9 @@ func _show_dialog_when_ready():
 ```
 DialogBox (Control)
 ├── PanelContainer
-│   └── MarginContainer
-│       └── Label
+│   ├── MarginContainer
+│   │   └── Label (main dialog text)
+│   └── MarginContainer2
+│       └── IndicatorLabel (shows ▼ or ✓)
 └── AnimationPlayer
 ```
