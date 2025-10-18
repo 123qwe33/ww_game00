@@ -4,7 +4,6 @@ const STOP_DISTANCE: float = 200.0
 
 var player: Character = null
 var has_reached_player: bool = false
-var dialog_ready: bool = false
 
 func _ready():
 	super._ready()
@@ -12,17 +11,6 @@ func _ready():
 	player = get_tree().get_first_node_in_group("player")
 	if not player:
 		push_warning("Chris: Could not find player in scene")
-
-	# Create dialog box instance and add to scene
-	_setup_dialog_box()
-
-func _setup_dialog_box():
-	"""Setup dialog box asynchronously"""
-	dialog_box = DialogBox.instantiate()
-	add_child(dialog_box)
-	# Wait one frame for the node to be fully initialized
-	await get_tree().process_frame
-	dialog_ready = true
 
 func _physics_process(delta):
 	# Only move if we have a valid player reference and haven't reached them yet
