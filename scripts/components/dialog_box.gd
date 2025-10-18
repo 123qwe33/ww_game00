@@ -1,5 +1,8 @@
 extends Control
 
+# Signal emitted when dialog is closed, passes the character who owned the dialog
+signal dialog_closed(character: Node2D)
+
 # Node references - will be fetched in _ready
 var label: Label = null
 var panel: PanelContainer = null
@@ -85,6 +88,10 @@ func hide_dialog():
 	dialog_slides.clear()
 	interact_actions.clear()
 	current_slide_index = 0
+
+	# Emit signal before clearing target_character so listeners can react
+	if target_character:
+		dialog_closed.emit(target_character)
 
 	# Fade out
 	var tween = create_tween()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://c4p3782e64rjw"]
+[gd_scene load_steps=16 format=4 uid="uid://c4p3782e64rjw"]
 
 [ext_resource type="Texture2D" uid="uid://bl07lth33wqug" path="res://assets/environment/level_01/background.png" id="1_01hg1"]
 [ext_resource type="Texture2D" uid="uid://c78ybfhcqj8wm" path="res://assets/environment/level_01/sky.png" id="2_v5pqk"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://bct5gpgrxcvt5" path="res://scenes/player/player2.tscn" id="11_4hx2o"]
 [ext_resource type="TileSet" uid="uid://co81d1ev52we3" path="res://assets/tilesets/forest_tileset.tres" id="12_cu4fk"]
 [ext_resource type="PackedScene" uid="uid://cj2em5pvp5l3v" path="res://scenes/player/chris.tscn" id="12_n536o"]
+[ext_resource type="PackedScene" uid="uid://c075dhslf0i1h" path="res://scenes/components/nut.tscn" id="14_n536o"]
 [ext_resource type="PackedScene" uid="uid://b4slcsd74pbsi" path="res://scenes/components/tree_00.tscn" id="15_7873c"]
 [ext_resource type="PackedScene" uid="uid://de0rquhbjtq8y" path="res://scenes/components/tree_01.tscn" id="16_ymej5"]
 [ext_resource type="Script" uid="uid://dwmwlx4kdumig" path="res://scripts/components/camera_2d.gd" id="19_qfl0r"]
@@ -246,3 +247,6 @@ position = Vector2(685, 58)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 script = ExtResource("19_qfl0r")
+
+[node name="Nut" parent="." instance=ExtResource("14_n536o")]
+position = Vector2(543, 81)
