@@ -3,11 +3,15 @@ extends Control
 # Signal emitted when dialog is closed, passes the character who owned the dialog
 signal dialog_closed(character: Node2D)
 
+# Preload InteractionArea scene
+const InteractionArea = preload("res://scenes/components/interaction_area.tscn")
+
 # Node references - will be fetched in _ready
 var label: Label = null
 var panel: PanelContainer = null
 var animation_player: AnimationPlayer = null
 var indicator_label: Label = null
+var interaction_area: Area2D = null
 
 const FADE_DURATION = 0.2
 const OFFSET_ABOVE_CHARACTER = Vector2(0, -150)
@@ -19,7 +23,6 @@ var gives_item: bool = false  # If true, character drops held item when dialog c
 # Multi-slide dialog support
 var dialog_slides: Array = []
 var current_slide_index: int = 0
-var interact_actions: Array = []
 
 func _ready():
 	# Fetch child nodes explicitly
@@ -37,10 +40,19 @@ func _ready():
 		push_error("  - AnimationPlayer: %s" % animation_player)
 		return
 
+	# Create and add InteractionArea
+	interaction_area = InteractionArea.instantiate()
+	add_child(interaction_area)
+	interaction_area.interact_pressed.connect(_on_interact_pressed)
+
 	# Start hidden
 	modulate.a = 0.0
 	visible = false
 	indicator_label.visible = false
+
+func _on_interact_pressed(_player: Character):
+	"""Called when a player in range presses their interact action"""
+	advance()
 
 func show_dialog(text: String, character: Node2D = null, drop_item: bool = false):
 	"""Display dialog box with given text above character (single dialog, no interaction)"""
@@ -56,7 +68,6 @@ func show_dialog(text: String, character: Node2D = null, drop_item: bool = false
 
 	# Clear multi-slide state for simple dialog
 	dialog_slides.clear()
-	interact_actions.clear()
 	current_slide_index = 0
 
 	is_open = true
@@ -73,6 +84,9 @@ func show_dialog(text: String, character: Node2D = null, drop_item: bool = false
 	# Position above character if provided
 	if target_character:
 		_update_position()
+		# Position interaction area at character location
+		if interaction_area:
+			interaction_area.global_position = target_character.global_position
 
 	# Fade in
 	visible = true
@@ -88,7 +102,6 @@ func hide_dialog():
 
 	# Clear multi-slide state
 	dialog_slides.clear()
-	interact_actions.clear()
 	current_slide_index = 0
 
 	# Emit signal before clearing target_character so listeners can react
@@ -109,7 +122,7 @@ func hide_dialog():
 	target_character = null
 	gives_item = false
 
-func show_multiple_dialogs(slides: Array, interaction_keys: Array, character: Node2D = null, drop_item: bool = false):
+func show_multiple_dialogs(slides: Array, character: Node2D = null, drop_item: bool = false):
 	"""Display multi-slide dialog with interaction support"""
 	if not label or not panel or not indicator_label:
 		push_error("DialogBox: Cannot show dialog, nodes not initialized!")
@@ -119,9 +132,8 @@ func show_multiple_dialogs(slides: Array, interaction_keys: Array, character: No
 		push_warning("DialogBox: Empty slides array provided")
 		return
 
-	# Store dialog slides and interaction keys
+	# Store dialog slides
 	dialog_slides = slides
-	interact_actions = interaction_keys
 	current_slide_index = 0
 
 	is_open = true
@@ -161,6 +173,9 @@ func _show_current_slide():
 	# Position above character if provided
 	if target_character:
 		_update_position()
+		# Position interaction area at character location
+		if interaction_area:
+			interaction_area.global_position = target_character.global_position
 
 	# Fade in if first slide
 	if current_slide_index == 0:
@@ -187,22 +202,13 @@ func _update_indicator():
 		# Last slide
 		indicator_label.text = "✓"
 
-func _unhandled_input(event):
-	"""Handle interaction input to advance dialog"""
-	if not is_open or interact_actions.is_empty():
-		return
-
-	# Check if any of the interact actions were pressed
-	for action in interact_actions:
-		if event.is_action_pressed(action):
-			advance()
-			get_viewport().set_input_as_handled()
-			break
-
 func _process(_delta):
 	# Keep dialog positioned above character while open
 	if is_open and target_character:
 		_update_position()
+		# Position interaction area at character location (world space)
+		if interaction_area:
+			interaction_area.global_position = target_character.global_position
 
 func _update_position():
 	"""Position dialog box above the target character"""

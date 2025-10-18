@@ -174,7 +174,7 @@ All characters share the same inventory implementation:
 
 ## Dialog System
 
-The dialog system allows NPCs to display text in speech bubbles that follow characters on screen.
+The dialog system allows NPCs to display text in speech bubbles that follow characters on screen. It uses a distance-based interaction system where any player within range can interact with the dialog.
 
 ### Architecture
 
@@ -183,6 +183,14 @@ The dialog system allows NPCs to display text in speech bubbles that follow char
 - Automatically positions above target character
 - Auto-resizes to fit text content
 - Fade in/out animations
+- Uses InteractionArea for automatic player detection and interaction
+
+**InteractionArea (interaction_area.tscn / interaction_area.gd)**:
+- Reusable Area2D component for distance-based player interactions
+- 200-pixel interaction radius
+- Automatically detects all players in "player" group within range
+- Handles interaction input from any player (p1_interact, p2_interact, etc.)
+- Emits signals: `interact_pressed(player)`, `player_entered(player)`, `player_exited(player)`
 
 **NPC Integration**:
 - NPC base class provides `dialog_box` variable and `DialogBox` constant
@@ -198,18 +206,18 @@ The dialog system allows NPCs to display text in speech bubbles that follow char
 - If already open, updates text without re-animating
 - If `drop_item = true`, character automatically drops their held item when dialog closes
 
-**`show_multiple_dialogs(slides: Array, interaction_keys: Array, character: Node2D = null, drop_item: bool = false)`**
+**`show_multiple_dialogs(slides: Array, character: Node2D = null, drop_item: bool = false)`**
 - Displays multi-slide dialog that requires player interaction to advance
 - `slides`: Array of strings, each representing one dialog slide
-- `interaction_keys`: Array of input action names (typically `["p1_interact", "p2_interact"]`)
-- Players press their interact action to advance through slides
+- Any player within 200 pixels can press their interact action to advance
+- Automatically detects all players (p1, p2, p3, etc.) without manual configuration
 - Shows visual indicator: "▼" for more slides, "✓" on final slide
 - Automatically closes after last slide is advanced
 - If `drop_item = true`, character automatically drops their held item when dialog closes
 
 **`advance()`**
 - Advances to the next slide in a multi-slide dialog
-- Called automatically by `_unhandled_input()` when player presses interact
+- Called automatically by InteractionArea when player in range presses interact
 - Can be called manually for programmatic control
 
 **`hide_dialog()`**
@@ -244,7 +252,7 @@ func _on_reach_player():
 	dialog_box.show_multiple_dialogs([
 		"Hey! I have something for you!",
 		"Here, take this apple!"
-	], ["p1_interact", "p2_interact"], self, true)  # true = drop_item
+	], self, true)  # true = drop_item
 
 	# When dialog closes, NPC will automatically drop the apple
 ```
@@ -292,8 +300,10 @@ func _show_dialog_when_ready():
 For interactive dialogs to work, players must have interact actions defined in Project Settings:
 - `p1_interact` - Player 1's interact action
 - `p2_interact` - Player 2's interact action
+- `p3_interact` - Player 3's interact action (if using player 3)
+- etc.
 
-These actions are used by `show_multiple_dialogs()` to allow players to advance through dialog slides.
+The InteractionArea component automatically detects which players are in range and checks their corresponding interact actions. No manual configuration needed - just ensure each player has a matching interact action in Project Settings.
 
 ### Usage Examples
 
@@ -342,19 +352,65 @@ func _show_dialog_when_ready():
 		await get_tree().process_frame
 
 	# Multi-slide dialog with player interaction
+	# Any player within 200 pixels can press their interact key to advance
 	dialog_box.show_multiple_dialogs([
 		"Hey! I finally caught up to you!",
 		"I've been chasing you for a while!",
 		"Nice to see you again!"
-	], ["p1_interact", "p2_interact"], self)
+	], self)
 
 	# Example with item drop:
 	# collect_item("coin")  # Give Chris a coin first
 	# dialog_box.show_multiple_dialogs([
 	#     "Hey! I have something for you!",
 	#     "Here, take this coin!"
-	# ], ["p1_interact", "p2_interact"], self, true)  # true = drop item on close
+	# ], self, true)  # true = drop item on close
 ```
+
+### Using InteractionArea for Other Interactive Objects
+
+The InteractionArea component is reusable and can be added to any object that needs distance-based player interaction:
+
+**Example: Interactive Sign**:
+```gdscript
+extends Node2D
+
+const InteractionArea = preload("res://scenes/components/interaction_area.tscn")
+
+var interaction_area: Area2D = null
+
+func _ready():
+	# Add interaction area
+	interaction_area = InteractionArea.instantiate()
+	add_child(interaction_area)
+
+	# Connect to interact signal
+	interaction_area.interact_pressed.connect(_on_interact)
+
+	# Optional: Track when players enter/exit range
+	interaction_area.player_entered.connect(_on_player_entered)
+	interaction_area.player_exited.connect(_on_player_exited)
+
+func _on_interact(player: Character):
+	print("Player ", player.input_prefix, " interacted with sign!")
+	# Show sign message, trigger event, etc.
+
+func _on_player_entered(player: Character):
+	# Could show a prompt like "Press [E] to read"
+	pass
+
+func _on_player_exited(player: Character):
+	# Hide prompt
+	pass
+```
+
+**InteractionArea Signals**:
+- `interact_pressed(player)` - Emitted when a player in range presses their interact action
+- `player_entered(player)` - Emitted when a player enters the interaction radius
+- `player_exited(player)` - Emitted when a player exits the interaction radius
+
+**InteractionArea Constants**:
+- `INTERACTION_RANGE`: 200.0 - Radius in pixels for interaction detection
 
 ### Constants and Configuration
 

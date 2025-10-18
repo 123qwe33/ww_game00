@@ -42,6 +42,6 @@ func _show_dialog_when_ready():
 			"Hey! I finally caught up to you!",
 			"I've been chasing you for a while!",
 			"Nice to see you again!"
-		], ["p1_interact", "p2_interact"], self, true)  # true = drops item when closed
+		], self, true)  # true = drops item when closed
 	else:
 		push_error("Chris: Dialog box is null when trying to show dialog!")
