@@ -197,6 +197,7 @@ position = Vector2(791, 116)
 
 [node name="TriggerZone" type="Area2D" parent="GameplayLayer"]
 position = Vector2(5422, 131)
+collision_mask = 3
 script = ExtResource("9_iu1m7")
 object_to_move = NodePath("../BlueberryWeffy")
 

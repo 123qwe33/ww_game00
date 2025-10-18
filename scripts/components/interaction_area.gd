@@ -17,8 +17,14 @@ const INTERACTION_RANGE: float = 200.0
 # Array of item IDs required to interact. Empty array = no requirements
 @export var required_items: Array[String] = []
 
+# Whether to show prompt on first player entry
+@export var show_interaction_prompt: bool = true
+
 # Tracks all players currently in range
 var players_in_range: Array[Character] = []
+
+# Tracks if prompt has been shown
+var prompt_shown: bool = false
 
 func _ready():
 	# Connect signals
@@ -30,6 +36,11 @@ func _on_body_entered(body: Node2D):
 	if body.is_in_group("player") and body is Character:
 		players_in_range.append(body)
 		player_entered.emit(body)
+
+		# Show interaction prompt on first player entry
+		if show_interaction_prompt and not prompt_shown:
+			prompt_shown = true
+			Prompt.display_prompt("Press ✱ to interact", 3)
 
 func _on_body_exited(body: Node2D):
 	# Remove player from range tracking
