@@ -1,34 +1,35 @@
-[gd_scene load_steps=11 format=3 uid="uid://bct5gpgrxcvt5"]
+[gd_scene load_steps=12 format=3 uid="uid://b01lp6mqkvehr"]
 
-[ext_resource type="PackedScene" uid="uid://gk1ch1ddofex" path="res://scenes/player/character.tscn" id="1_k4qxg"]
-[ext_resource type="Texture2D" uid="uid://7nmft2diqqbd" path="res://assets/sprites/player/player2_sheet.png" id="3_0byj5"]
+[ext_resource type="PackedScene" uid="uid://gk1ch1ddofex" path="res://scenes/player/character.tscn" id="1_35ti2"]
+[ext_resource type="Texture2D" uid="uid://7nmft2diqqbd" path="res://assets/sprites/player/player2_sheet.png" id="2_3q3tp"]
+[ext_resource type="Script" uid="uid://bb7nyyigw4el5" path="res://scripts/player/npc.gd" id="2_lugpi"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jpx7o"]
-atlas = ExtResource("3_0byj5")
+atlas = ExtResource("2_3q3tp")
 region = Rect2(0, 36, 18, 36)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4ftps"]
-atlas = ExtResource("3_0byj5")
+atlas = ExtResource("2_3q3tp")
 region = Rect2(18, 36, 18, 36)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x7ksw"]
-atlas = ExtResource("3_0byj5")
+atlas = ExtResource("2_3q3tp")
 region = Rect2(0, 0, 18, 36)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t51w6"]
-atlas = ExtResource("3_0byj5")
+atlas = ExtResource("2_3q3tp")
 region = Rect2(18, 0, 18, 36)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oyukl"]
-atlas = ExtResource("3_0byj5")
+atlas = ExtResource("2_3q3tp")
 region = Rect2(36, 0, 18, 36)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y5uwg"]
-atlas = ExtResource("3_0byj5")
+atlas = ExtResource("2_3q3tp")
 region = Rect2(54, 0, 18, 36)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_akc6e"]
-atlas = ExtResource("3_0byj5")
+atlas = ExtResource("2_3q3tp")
 region = Rect2(0, 36, 18, 36)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_wegus"]
@@ -73,10 +74,9 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Player2" instance=ExtResource("1_k4qxg")]
-input_enabled = true
-input_prefix = "p2"
-group = "player"
+[node name="NPC" instance=ExtResource("1_35ti2")]
+script = ExtResource("2_lugpi")
+input_prefix = ""
 
 [node name="AnimatedSprite2D" parent="." index="0"]
 scale = Vector2(5.2, 5.2)

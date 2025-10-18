@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cj2em5pvp5l3v"]
+
+[ext_resource type="PackedScene" uid="uid://b01lp6mqkvehr" path="res://scenes/player/npc.tscn" id="1_55n2m"]
+[ext_resource type="Script" uid="uid://cn1hdlt8glnup" path="res://scripts/player/chris.gd" id="2_35ti2"]
+
+[node name="Chris" instance=ExtResource("1_55n2m")]
+script = ExtResource("2_35ti2")
+input_prefix = "p3"

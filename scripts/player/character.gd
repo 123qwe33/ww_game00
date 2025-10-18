@@ -1,10 +1,11 @@
 extends CharacterBody2D
 class_name Character
 
-func _ready():
-	add_to_group("player")
-	# Initialize the held item sprite to be invisible at start
-	held_item_sprite.visible = false
+# Virtual method for getting movement direction - can be overridden by NPCs
+func get_movement_direction() -> float:
+	var left_action = "%s_left" % input_prefix
+	var right_action = "%s_right" % input_prefix
+	return Input.get_axis(left_action, right_action)
 
 @onready var sprite = $AnimatedSprite2D
 @onready var held_item_sprite = $HeldItem/Sprite2D
@@ -25,6 +26,12 @@ var current_held_item: String = ""  # ID of the currently held item
 @export var do_item_prompt: bool = false
 @export var input_enabled: bool = false
 @export var input_prefix: String = "p1"  # Input action prefix for player-specific controls
+@export var group: String = "npc"  # Input action prefix for player-specific controls
+
+func _ready():
+	add_to_group(group)
+	# Initialize the held item sprite to be invisible at start
+	held_item_sprite.visible = false
 
 func _physics_process(delta):
 	
@@ -64,18 +71,16 @@ func _physics_process(delta):
 		rotate_held_item()
 
 	# Get the input direction and handle the movement/deceleration.
-	var left_action = "%s_left" % input_prefix
-	var right_action = "%s_right" % input_prefix
-	var direction = Input.get_axis(left_action, right_action)
+	var direction = get_movement_direction()
 
 	# Flip the sprite based on direction
-	if direction > 0 and input_enabled:
+	if direction > 0:
 		sprite.flip_h = false # Facing right (assuming default sprite faces right)
 		# Position held item to the right of player
 		$HeldItem.position.x = abs($HeldItem.position.x)
 		# Make sure held item sprite is not flipped when facing right
 		held_item_sprite.flip_h = false
-	elif direction < 0 and input_enabled:
+	elif direction < 0:
 		sprite.flip_h = true  # Facing left
 		# Position held item to the left of player
 		$HeldItem.position.x = -abs($HeldItem.position.x)
@@ -84,16 +89,16 @@ func _physics_process(delta):
 		# Note: If direction is 0, the sprite keeps its last orientation.
 
 	# Set velocity based on direction
-	if direction and input_enabled:
+	if direction:
 		velocity.x = direction * SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED) # Simple friction/stop
-		
+
 	# Handle animations based on state
 	if not is_on_floor() and air_time >= AIR_THRESHOLD:
 		# Only play jump animation if we've been in the air longer than the threshold
 		sprite.play("jump")
-	elif direction and input_enabled:
+	elif direction:
 		sprite.play("walk")
 	else:
 		sprite.play("idle")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=4 uid="uid://c4p3782e64rjw"]
+[gd_scene load_steps=16 format=4 uid="uid://c4p3782e64rjw"]
 
 [ext_resource type="Texture2D" uid="uid://bl07lth33wqug" path="res://assets/environment/level_01/background.png" id="1_01hg1"]
 [ext_resource type="Texture2D" uid="uid://c78ybfhcqj8wm" path="res://assets/environment/level_01/sky.png" id="2_v5pqk"]
@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://qyluy8f7x30h" path="res://scenes/enemies/squirrel.tscn" id="8_gus8w"]
 [ext_resource type="PackedScene" uid="uid://bct5gpgrxcvt5" path="res://scenes/player/player2.tscn" id="11_4hx2o"]
 [ext_resource type="TileSet" uid="uid://co81d1ev52we3" path="res://assets/tilesets/forest_tileset.tres" id="12_cu4fk"]
+[ext_resource type="PackedScene" uid="uid://cj2em5pvp5l3v" path="res://scenes/player/chris.tscn" id="12_n536o"]
+[ext_resource type="PackedScene" uid="uid://c075dhslf0i1h" path="res://scenes/components/nut.tscn" id="14_n536o"]
 [ext_resource type="PackedScene" uid="uid://b4slcsd74pbsi" path="res://scenes/components/tree_00.tscn" id="15_7873c"]
 [ext_resource type="PackedScene" uid="uid://de0rquhbjtq8y" path="res://scenes/components/tree_01.tscn" id="16_ymej5"]
 [ext_resource type="Script" uid="uid://dwmwlx4kdumig" path="res://scripts/components/camera_2d.gd" id="19_qfl0r"]
@@ -20,7 +22,7 @@ shader_parameter/distortion_strength = 0.01
 shader_parameter/wave_freq = 30.0
 shader_parameter/tint = Vector4(0.2, 0.4, 0.8, 0.4)
 
-[node name="Level01" type="Node2D"]
+[node name="Level02" type="Node2D"]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -165,16 +167,16 @@ offset_bottom = 20.0
 color = Color(0.232899, 0.539878, 0.716636, 1)
 
 [node name="Player" parent="GameplayLayer" groups=["player"] instance=ExtResource("7_kx1rr")]
-position = Vector2(-214, 55)
+position = Vector2(-269, 62)
 
 [node name="Player2" parent="GameplayLayer" instance=ExtResource("11_4hx2o")]
-position = Vector2(-367, 54)
+position = Vector2(-365, 60)
 
 [node name="Squirrel" parent="GameplayLayer" instance=ExtResource("8_gus8w")]
 position = Vector2(2319, -80)
 
 [node name="Squirrel2" parent="GameplayLayer" instance=ExtResource("8_gus8w")]
-position = Vector2(791, 116)
+position = Vector2(1869, 77)
 
 [node name="trees" type="Node2D" parent="GameplayLayer"]
 position = Vector2(0, -911)
@@ -240,5 +242,11 @@ z_index = -1
 position = Vector2(0, -7)
 tile_set = ExtResource("12_cu4fk")
 
+[node name="Chris" parent="GameplayLayer" instance=ExtResource("12_n536o")]
+position = Vector2(685, 58)
+
 [node name="Camera2D" type="Camera2D" parent="."]
 script = ExtResource("19_qfl0r")
+
+[node name="Nut" parent="." instance=ExtResource("14_n536o")]
+position = Vector2(543, 81)
