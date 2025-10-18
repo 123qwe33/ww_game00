@@ -21,7 +21,7 @@ shader_parameter/distortion_strength = 0.01
 shader_parameter/wave_freq = 30.0
 shader_parameter/tint = Vector4(0.2, 0.4, 0.8, 0.4)
 
-[node name="Level01" type="Node2D"]
+[node name="Level02" type="Node2D"]
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
