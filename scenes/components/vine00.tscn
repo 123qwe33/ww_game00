@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://jh036btmitup"]
+[gd_scene load_steps=6 format=3 uid="uid://jh036btmitup"]
 
 [ext_resource type="Script" uid="uid://uhyx7hu3b2tu" path="res://scripts/components/cuttable.gd" id="1_0s3rh"]
 [ext_resource type="Texture2D" uid="uid://dyeq2d8o46yj7" path="res://assets/environment/level_01/tilesetOpenGame_1.png" id="1_kyhj5"]
@@ -8,11 +8,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kyhj5"]
 size = Vector2(100, 114)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_nw0e2"]
-size = Vector2(110, 124)
-
 [node name="Vine00" type="StaticBody2D" groups=["cuttable", "pushable"]]
 scale = Vector2(2, 2)
+collision_mask = 3
 script = ExtResource("1_0s3rh")
 cut_sound = ExtResource("2_alm31")
 cut_particles_scene = ExtResource("3_c571u")
@@ -25,10 +23,5 @@ region_rect = Rect2(64, 64, 32, 32)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_kyhj5")
-
-[node name="CutArea" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CutArea"]
-shape = SubResource("RectangleShape2D_nw0e2")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

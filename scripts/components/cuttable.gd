@@ -3,6 +3,8 @@ extends Node2D
 # Signal emitted when the vine is cut
 signal cut
 
+const InteractionArea = preload("res://scenes/components/interaction_area.tscn")
+
 # Whether this item has been cut already
 var is_cut: bool = false
 
@@ -12,17 +14,13 @@ var is_cut: bool = false
 # The particle effect to spawn when cut (optional)
 @export var cut_particles_scene: PackedScene
 
-# Function for handling collision with player
-func _on_body_entered(body):
-	# Skip if already cut
-	if is_cut:
-		return
-		
-	# Check if it's the player
-	if body.is_in_group("player"):
-		# Check if player is holding shears
-		if body.current_held_item == "shears":
-			cut_self()
+# Reference to the interaction area
+var interaction_area: Area2D = null
+
+# Function for handling player interaction
+func _on_interact_pressed(player: Character):
+	# Player has the required item (shears) and pressed interact
+	cut_self()
 
 # Cut the vine
 func cut_self():
@@ -52,10 +50,15 @@ func cut_self():
 	queue_free()
 
 func _ready():
-	# Connect the body entered signal
-	# We'll need to add an Area2D node to detect collisions
-	if has_node("CutArea"):
-		$CutArea.body_entered.connect(_on_body_entered)
+	# Create and configure interaction area
+	interaction_area = InteractionArea.instantiate()
+	add_child(interaction_area)
+
+	# Set required items (shears needed to cut)
+	interaction_area.required_items.append("shears")
+
+	# Connect to interact signal
+	interaction_area.interact_pressed.connect(_on_interact_pressed)
 
 	# Set the cut sound if provided
 	if cut_sound != null and has_node("AudioStreamPlayer"):
