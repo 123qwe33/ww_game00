@@ -50,6 +50,10 @@ func _show_dialog_when_ready():
 		await get_tree().process_frame
 
 	if dialog_box:
-		dialog_box.show_dialog("Hey! I finally caught up to you!", self)
+		dialog_box.show_multiple_dialogs([
+			"Hey! I finally caught up to you!",
+			"I've been chasing you for a while!",
+			"Nice to see you again!"
+		], ["p1_interact", "p2_interact"], self)
 	else:
 		push_error("Chris: Dialog box is null when trying to show dialog!")
