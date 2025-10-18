@@ -171,3 +171,124 @@ All characters share the same inventory implementation:
 - When picking up new type at capacity, oldest item is dropped
 - Items are visually displayed when held
 - Rotation system cycles through available items
+
+## Dialog System
+
+The dialog system allows NPCs to display text in speech bubbles that follow characters on screen.
+
+### Architecture
+
+**DialogBox (dialog_box.tscn / dialog_box.gd)**:
+- Control node with PanelContainer, Label, and AnimationPlayer
+- Automatically positions above target character
+- Auto-resizes to fit text content
+- Fade in/out animations
+
+**NPC Integration**:
+- NPC base class provides `dialog_box` variable and `DialogBox` constant
+- NPCs instantiate and manage their own dialog box instances
+- Dialog boxes are added as children of the NPC for automatic cleanup
+
+### Key DialogBox Methods
+
+**`show_dialog(text: String, character: Node2D = null)`**
+- Displays dialog box with given text
+- If character provided, positions box above character and follows them
+- Auto-fades in over `FADE_DURATION` (0.2s)
+- If already open, updates text without re-animating
+
+**`hide_dialog()`**
+- Fades out and hides the dialog box
+- Clears target character reference
+
+### Important Implementation Details
+
+**Async/Timing Considerations**:
+The dialog box uses regular variables (not `@onready`) that are initialized in `_ready()`. When instantiating and using a dialog box, you MUST wait for initialization:
+
+```gdscript
+# In your NPC script
+var dialog_box: Control = null
+var dialog_ready: bool = false
+
+func _setup_dialog_box():
+	dialog_box = DialogBox.instantiate()
+	add_child(dialog_box)
+	# CRITICAL: Wait for node to be fully initialized
+	await get_tree().process_frame
+	dialog_ready = true
+```
+
+**When calling `show_dialog()`**, ensure the dialog box is ready:
+```gdscript
+func _show_dialog_when_ready():
+	# Wait until dialog_ready flag is set
+	while not dialog_ready:
+		await get_tree().process_frame
+
+	if dialog_box:
+		dialog_box.show_dialog("Hello!", self)
+```
+
+**Why This Pattern?**:
+- `@onready` variables are only initialized after `_ready()` completes
+- If you call `show_dialog()` immediately after `instantiate()`, the internal nodes will be null
+- Waiting one frame after `add_child()` ensures `_ready()` has completed
+- Using a ready flag prevents race conditions when called from `_physics_process()`
+
+### Usage Example (Chris NPC)
+
+```gdscript
+extends NPC
+
+const STOP_DISTANCE: float = 200.0
+
+var player: Character = null
+var has_reached_player: bool = false
+var dialog_ready: bool = false
+
+func _ready():
+	super._ready()
+	player = get_tree().get_first_node_in_group("player")
+	_setup_dialog_box()
+
+func _setup_dialog_box():
+	dialog_box = DialogBox.instantiate()
+	add_child(dialog_box)
+	await get_tree().process_frame
+	dialog_ready = true
+
+func _physics_process(delta):
+	if player and not has_reached_player:
+		var distance_to_player = global_position.distance_to(player.global_position)
+
+		if distance_to_player > STOP_DISTANCE:
+			movement_direction = -1.0
+		else:
+			movement_direction = 0.0
+			has_reached_player = true
+			_show_dialog_when_ready()
+
+	super._physics_process(delta)
+
+func _show_dialog_when_ready():
+	while not dialog_ready:
+		await get_tree().process_frame
+
+	dialog_box.show_dialog("Hey! I finally caught up to you!", self)
+```
+
+### Constants and Configuration
+
+**DialogBox Constants**:
+- `FADE_DURATION`: 0.2 - Fade animation duration in seconds
+- `OFFSET_ABOVE_CHARACTER`: Vector2(0, -60) - Vertical offset above character
+
+**Scene Structure** (dialog_box.tscn):
+```
+DialogBox (Control)
+├── PanelContainer
+│   └── MarginContainer
+│       └── Label
+└── AnimationPlayer
+```
