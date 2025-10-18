@@ -3,6 +3,8 @@ class_name Character
 
 # Virtual method for getting movement direction - can be overridden by NPCs
 func get_movement_direction() -> float:
+	if not input_enabled:
+		return 0.0
 	var left_action = "%s_left" % input_prefix
 	var right_action = "%s_right" % input_prefix
 	return Input.get_axis(left_action, right_action)
