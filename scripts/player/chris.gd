@@ -3,6 +3,7 @@ extends NPC
 const STOP_DISTANCE: float = 200.0
 
 var player: Character = null
+var has_reached_player: bool = false
 
 func _ready():
 	super._ready()
@@ -11,18 +12,36 @@ func _ready():
 	if not player:
 		push_warning("Chris: Could not find player in scene")
 
+	# Create dialog box instance and add to scene
+	_setup_dialog_box()
+
+func _setup_dialog_box():
+	"""Setup dialog box asynchronously"""
+	dialog_box = DialogBox.instantiate()
+	get_tree().current_scene.add_child(dialog_box)
+	# Wait one frame to ensure the dialog box is fully initialized
+	await get_tree().process_frame
+
 func _physics_process(delta):
-	# Only move if we have a valid player reference
-	if player:
+	# Only move if we have a valid player reference and haven't reached them yet
+	if player and not has_reached_player:
 		var distance_to_player = global_position.distance_to(player.global_position)
 
 		# Walk left if we're too far from the player
 		if distance_to_player > STOP_DISTANCE:
 			movement_direction = -1.0
 		else:
+			# Reached the player - stop forever and show dialog
 			movement_direction = 0.0
+			has_reached_player = true
+			_on_reached_player()
 	else:
 		movement_direction = 0.0
 
 	# Let Character handle all the physics, gravity, animations, etc.
 	super._physics_process(delta)
+
+func _on_reached_player():
+	"""Called when Chris reaches the player for the first time"""
+	if dialog_box:
+		dialog_box.show_dialog("Hey! I finally caught up to you!", self)

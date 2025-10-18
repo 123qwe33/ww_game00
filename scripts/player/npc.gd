@@ -1,6 +1,9 @@
 extends Character
 class_name NPC
 
+const DialogBox = preload("res://scenes/components/dialog_box.tscn")
+var dialog_box: Control = null
+
 var movement_direction: float = 0.0
 
 func _ready():
