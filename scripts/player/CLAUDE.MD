@@ -191,19 +191,21 @@ The dialog system allows NPCs to display text in speech bubbles that follow char
 
 ### Key DialogBox Methods
 
-**`show_dialog(text: String, character: Node2D = null)`**
+**`show_dialog(text: String, character: Node2D = null, drop_item: bool = false)`**
 - Displays single dialog box with given text (no player interaction required)
 - If character provided, positions box above character and follows them
 - Auto-fades in over `FADE_DURATION` (0.2s)
 - If already open, updates text without re-animating
+- If `drop_item = true`, character automatically drops their held item when dialog closes
 
-**`show_multiple_dialogs(slides: Array, interaction_keys: Array, character: Node2D = null)`**
+**`show_multiple_dialogs(slides: Array, interaction_keys: Array, character: Node2D = null, drop_item: bool = false)`**
 - Displays multi-slide dialog that requires player interaction to advance
 - `slides`: Array of strings, each representing one dialog slide
 - `interaction_keys`: Array of input action names (typically `["p1_interact", "p2_interact"]`)
 - Players press their interact action to advance through slides
 - Shows visual indicator: "▼" for more slides, "✓" on final slide
 - Automatically closes after last slide is advanced
+- If `drop_item = true`, character automatically drops their held item when dialog closes
 
 **`advance()`**
 - Advances to the next slide in a multi-slide dialog
@@ -213,6 +215,42 @@ The dialog system allows NPCs to display text in speech bubbles that follow char
 **`hide_dialog()`**
 - Fades out and hides the dialog box
 - Clears target character reference and multi-slide state
+- Triggers automatic item drop if `drop_item` was set to true
+
+### Dialog-Triggered Item Drop
+
+The dialog system includes a feature where characters can automatically drop their held item when the dialog closes. This is useful for NPCs that give items to players as part of their interaction.
+
+**How It Works**:
+1. When showing a dialog, set the `drop_item` parameter to `true`
+2. When the dialog closes (via `hide_dialog()` or after final slide), the system:
+   - Checks if the character has a `drop_item()` method
+   - Checks if the character has a non-empty `current_held_item`
+   - Automatically calls `character.drop_item(current_held_item)`
+
+**Requirements**:
+- Character must extend from Character class (has `drop_item()` method and `current_held_item` property)
+- Character must have an item in their inventory to drop
+- Only drops the currently held item (one instance)
+
+**Usage Example**:
+```gdscript
+# NPC gives player an item after dialog
+func _on_reach_player():
+	# Give the NPC an item first
+	collect_item("apple")
+
+	# Show dialog with drop_item=true
+	dialog_box.show_multiple_dialogs([
+		"Hey! I have something for you!",
+		"Here, take this apple!"
+	], ["p1_interact", "p2_interact"], self, true)  # true = drop_item
+
+	# When dialog closes, NPC will automatically drop the apple
+```
+
+**Signal Integration**:
+The DialogBox emits `dialog_closed(character: Node2D)` signal before triggering the item drop, allowing other systems to react to dialog closure.
 
 ### Important Implementation Details
 
@@ -309,6 +347,13 @@ func _show_dialog_when_ready():
 		"I've been chasing you for a while!",
 		"Nice to see you again!"
 	], ["p1_interact", "p2_interact"], self)
+
+	# Example with item drop:
+	# collect_item("coin")  # Give Chris a coin first
+	# dialog_box.show_multiple_dialogs([
+	#     "Hey! I have something for you!",
+	#     "Here, take this coin!"
+	# ], ["p1_interact", "p2_interact"], self, true)  # true = drop item on close
 ```
 
 ### Constants and Configuration
