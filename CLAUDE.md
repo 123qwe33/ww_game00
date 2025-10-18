@@ -24,6 +24,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 This project uses autoload singletons for global game systems:
 - **GameManager**: Handles level progression, player lifecycle, and level-to-music associations
 - **SoundManager**: Centralized audio playback for music, sound effects, and UI sounds
+- **Prompt**: Displays temporary on-screen messages to the player
 
 For detailed documentation on these systems, see `/scripts/autoloads/CLAUDE.MD`
 
@@ -40,6 +41,10 @@ SoundManager.play_fx_sound("land")
 
 # Add music for new levels
 GameManager.level_music[3] = "phantom"
+
+# Display a prompt to the player (message, duration in seconds)
+Prompt.display_prompt("Press ✱ to interact", 3)
+Prompt.display_prompt("Picked up shears. Press ◯ to drop, or △ to change items.", 5)
 ```
 
 ## Character System
