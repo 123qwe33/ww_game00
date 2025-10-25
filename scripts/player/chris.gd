@@ -19,7 +19,7 @@ func _physics_process(delta):
 
 		# Walk left if we're too far from the player
 		if distance_to_player > STOP_DISTANCE:
-			movement_direction = -1.0
+			movement_direction = -0.6
 		else:
 			# Reached the player - stop forever and show dialog
 			movement_direction = 0.0
